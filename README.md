@@ -16,5 +16,5 @@ Something
 `$ python3 ~/baatimeblogs/app/app.py`
 
 ## Acknowledgment
-Mr. Topher Mykolyk <br>
+Prof. Topher Mykolyk <br>
 Stuyvesant High School
