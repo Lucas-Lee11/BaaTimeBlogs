@@ -11,4 +11,6 @@ Theodore Fahey (Dev)
 Something
 
 ## Installation
-Cloning and run instructions
+1. Clone this repo onto your personal machine
+2. Run in preferred environment:
+`$ python3 ~/baatimeblogs/app/app.py`
