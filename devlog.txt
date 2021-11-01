@@ -17,3 +17,6 @@ AlejandroA -- 2021-10-28 8:43
   
 EmmaB -- 2021-10-29 8:33
   Added design_wiki.pdf to repo
+
+AlejandroA -- 2021-11-1 8:06
+  Added second design_wiki0.pdf to repo
