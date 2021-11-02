@@ -13,6 +13,7 @@ Something
 ## Installation
 1. Clone this repo onto your personal machine
 2. Run in preferred environment:
+`$ pip -r requirements.txt`
 `$ python3 ~/baatimeblogs/app/app.py`
 
 ## Acknowledgment
