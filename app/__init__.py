@@ -1,7 +1,6 @@
 # Baa Time — Alejandro Alonso, Ivan Mijacika, Theodore Fahey, Emma Buller
 # SoftDev
 # P00
-<<<<<<< HEAD
 # 2021-10-27
 
 from flask import Flask, render_template, request
@@ -19,5 +18,4 @@ if __name__ == "__main__": #false if this file imported as module
     #enable debugging, auto-restarting of server when this file is modified
     app.debug = True
     app.run()
-=======
-# 2021-10-27
+
