@@ -8,18 +8,24 @@ Sample Entry: firstL -- TIMESTAMP\n ( e.g.: topherM -- 1999-12-31 23:59 )
 Begin Devlog:
 AlejandroA -- 2021-10-27 4:32
   Initial repo setup, design.txt setup
-  
+
 EmmaB -- 2021-10-27 10:48
   design.pdf update w/ visual map
-  
+
 AlejandroA -- 2021-10-28 8:43
   HTML scaffolding setup, devlog update
-  
+
 EmmaB -- 2021-10-29 8:33
   Added design_wiki.pdf to repo
 
 AlejandroA -- 2021-11-1 8:06
   Added second design_wiki0.pdf to repo
 
+EmmaB -- 2021-11-1 8:38
+  Added to crt_blog.html
+
 AlejandroA -- 2021-11-1 8:40
   Added to homepage.html
+
+EmmaB -- 2021-11-2 4:06
+  Got the top of homepage to redirect to crt_blog.html
