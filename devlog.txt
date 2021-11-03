@@ -38,3 +38,6 @@ TheodoreF -- 2021-11-2 8:40
   
 AlejandroA -- 2021-11-2 10:37
   looked over all recent changes, added comments/docstrings, planned out next steps for all devos, and collated current progress into presentable deliverable
+
+IvanM -- 2021-11-3 12:53
+  Added to view_blog.html and allowed the nav buttons in homepage to redirect to view_blog.html
