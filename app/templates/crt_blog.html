@@ -68,9 +68,14 @@ a:active{
 
 <body>
   <form action ="/new_blog">
-    <label for="postname"> Blog Name </label><br>
+    <label for="blog">Which Blog?</label> <br>
+    <select name="blog" id="blog">
+      <option value="Blog1"> Blog1 </option> <!--will be replaced with blogs stored in database -->
+      <option value=newblog> Create New Blog </option>
+      </select><br>
+    <label for="postname"> Post Name </label><br>
     <input type="text" id="postname" name="postname"> <br>
-    <label for ="body"> Blog Text </label> <br>
+    <label for ="body"> Post Text </label> <br>
     <textarea id="body" name="body" rows="20" cols="80"> </textarea> <br>
       <input type="submit" value ="post">
     </form>
