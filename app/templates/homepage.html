@@ -64,12 +64,17 @@ a:active{
   color: cyan;
 }
  .dropbtn {
-          background-color: #FFEBCD;
+          background-color: rgb(211, 211, 211);
           color: black;
-          padding: 16px;
-          font-size: 16px;
+          padding: 15px 0px;
           border: none;
           width: 100%;
+          font-family: Copperplate;
+          font-style: normal;
+          font-variant: small-caps;
+          font-weight: 700;
+          text-align: center;
+          font-size: 18px;
         }
         .dropdown {
           position: relative;
@@ -104,9 +109,9 @@ a:active{
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
-      <a href="#">Link 1</a>
-      <a href="#">Link 2</a>
-      <a href="#">Link 3</a>
+      <a href="{{ url_for('edit_blog')}}">Link 1</a>
+      <a href="{{ url_for('edit_blog')}}">Link 2</a>
+      <a href="{{ url_for('edit_blog')}}">Link 3</a>
     </div>
   </div>
                     
