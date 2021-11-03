@@ -21,7 +21,9 @@ def crt_blog():
 @app.route("/new_blog")
 def new_blog():
     return render_template("homepage.html", username='user1')
-
+@app.route("/edit_blog")
+def edit_blog():
+    return render_template("edit_blog.html")
 if __name__ == "__main__": #false if this file imported as module
     #enable debugging, auto-restarting of server when this file is modified
     app.debug = True

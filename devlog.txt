@@ -32,3 +32,5 @@ EmmaB -- 2021-11-2 4:06
 
 EmmaB -- 2021-11-2 4:30
   Added form to crt_blog.html
+TheodoreF -- 2021-11-2 8:40
+  edit_blog.html- Added forms, basic formatting, and connected it to the homepage and routed it.
