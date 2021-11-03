@@ -12,7 +12,8 @@ Something
 
 ## Installation
 1. Clone this repo onto your personal machine
-2. Run in preferred environment:
+2. Run in preferred environment: <br>
+`$ pip -r requirements.txt` <br>
 `$ python3 ~/baatimeblogs/app/app.py`
 
 ## Acknowledgment
