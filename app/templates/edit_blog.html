@@ -20,17 +20,19 @@ P00
               right:0;
               height:30px;
             }
-            body{background-color: lightblue;
+            body{background-color: rgb(255, 255, 255);
                 font-family: Copperplate;
                 text-align: center;
                 
             }
         .dropbtn {
-          background-color: #FFEBCD;
+          background-color: #ffffff;
           color: black;
           padding: 16px;
           font-size: 16px;
           border: none;
+          font-family: Copperplate;
+          text-align: center;
         }
         .dropdown {
           position: relative;
@@ -52,7 +54,7 @@ P00
         }
         .dropdown-content a:hover {background-color: #ddd;}
         .dropdown:hover .dropdown-content {display: block;}
-        .dropdown:hover .dropbtn {background-color: #3e8e41;}
+        .dropdown:hover .dropbtn {background-color: #777777;}
             
         </style>
     </head>
@@ -62,16 +64,17 @@ P00
                 <input type= "text" id="editname" name="editname"><br>
                 <label for= "editpost"> Edit Your Post </label> <br>
                 <textarea id= "editpost" name = "editpost"> </textarea> <br> <br>
-                <input type="submit" value ="post"> <br>
                 <div class= "dropdown">
                     <button class="dropbtn"> Which Post </button>
                     <div class = "dropdown-content">
-                        <a href= "/" ><strong> Post 1 </strong> </a> <!-- currently routes to homepage, will select post to edit in future-->
+                        <a href= "/" > Post 1 </a> <!-- currently routes to homepage, will select post to edit in future-->
                     </div>
-                
-                <div id="footer">
-                        <p>Baa Time | Alejandro Alonso, Emma Buller, Theo Fahey, Ivan Mijacika | <a href='https://github.com/AAWorks/BaaTimeBlogs'>Github Repo</a> | Copyrights &copy; 2020 All Rights Reserved | Last Update: Nov 2021</p>
-                      </div>
+                  </div>
+                <input type="submit" value ="post"> <br>
+              </div>
+          <div id="footer">
+                  <p>Baa Time | Alejandro Alonso, Emma Buller, Theo Fahey, Ivan Mijacika | <a href='https://github.com/AAWorks/BaaTimeBlogs'>Github Repo</a> | Copyrights &copy; 2020 All Rights Reserved | Last Update: Nov 2021</p>
+          </div>
                 
    </body>
 </html>

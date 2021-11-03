@@ -7,6 +7,10 @@ EVERYONE:
 REMEMBER, BLOGS AND POSTS ARE DIFFERENT!
 
 EBULLER:
+11/3
+work on: 
+
+11/2
 work on: crt_blog.html 
 note: currently creates a blog with text directly inside, should have option for...
 - blog name
@@ -14,6 +18,10 @@ note: currently creates a blog with text directly inside, should have option for
 - text for first post
 
 TFAHEY:
+11/3
+
+
+
 work on: edit_blog.html, homepage.html
 note:
 - needs to be able to chose which blog to edit, and then which post IN that blog to edit
