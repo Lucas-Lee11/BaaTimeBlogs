@@ -19,9 +19,9 @@ note: currently creates a blog with text directly inside, should have option for
 
 TFAHEY:
 11/3
+work on:
 
-
-
+11/2
 work on: edit_blog.html, homepage.html
 note:
 - needs to be able to chose which blog to edit, and then which post IN that blog to edit
@@ -31,12 +31,20 @@ how the dropdown menus work, add a dropdown for the edit_blog button on the home
 - - this might be an indenting issue
 
 IMIJACIKA:
+11/3
+work on:
+
+11/2
 work on: view_blogs.html
 - should choose a blog to view and then view posts in that blog
 - instead of making them choose a user, then a blog, can just make selection from big 
 masterlist of blogs with users in ()
 
 AALONSO:
+11/3
+work on: splitting __init__.py
+
+11/2
 work on: homepage.html, new_post_old_blog.html, __init__.py
 - homepage.html should be better formatted
 - maybe split __init__.py into other py files for each function, use __init__ as a wrapper
