@@ -5,6 +5,15 @@
 
 import sqlite3, hashlib
 
+SETUP="""
+CREATE TABLE IF NOT EXISTS users (
+    username            TEXT
+    password            TEXT
+    user_id             TEXT PRIMARY KEY DEFAULT (hex(randomblob(8)))
+    num_blogs           INTEGER DEFAULT 0
+);
+"""
+
 def hash(password: str) -> str:
     """
     hash pwd with SHA512
@@ -12,7 +21,7 @@ def hash(password: str) -> str:
     return hashlib.sha512(password.encode()).hexdigest()
 
 def validate_new_user(user):
-	rows = cursor.execute("SELECT user FROM db").fetchall()
+	rows = cursor.execute("SELECT user FROM users").fetchall()
 	for i in rows:
 		if (i == user):
 			return false
@@ -23,7 +32,7 @@ def validate_new_user(user):
     """
 	
 def crt_user(user, pw):
-	cursor.execute("INSERT INTO db VALUES('" + user +"','" + pw + "',NULL");
+	cursor.execute("INSERT INTO users VALUES('" + user +"','" + pw + "',NULL");
     """
     if all inputs pass, create new user with inputs
     """
@@ -36,7 +45,7 @@ def get_userid():
     pass
 
 def auth_user(user,pw):
-	rows = cursor.execute("SELECT user, pass FROM db").fetchall()
+	rows = cursor.execute("SELECT user, pass FROM users").fetchall()
 	up = "('" + user +"', '" + pw + "')")
 	for i in rows:
 		if (i[0] == up):
