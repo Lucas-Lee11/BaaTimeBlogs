@@ -54,5 +54,5 @@ AlejandroA -- 2021-11-3 8:30
 AlejandroA -- 2021-11-3 8:03
   Finished a robust draft of python scaffold for discussion 11/4, updated next steps
 
-EmmaB -- 2021-11-4 8:40
+EmmaB, TheoF -- 2021-11-4 8:40
   Added pseudocode for auth.py
