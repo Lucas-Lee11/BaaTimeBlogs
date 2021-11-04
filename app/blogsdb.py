@@ -5,6 +5,9 @@
 
 import sqlite3
 
+SETUP = """
+"""
+
 class Blog_DB:
     class Blog:
         def __init__(self, db, keys, values):
@@ -37,18 +40,22 @@ class Blog_DB:
         """
         connects to database (db), if none exists, creates one
         """
+        self.con = sqlite3.connect("blogs.db") # change to 'sqlite:///your_filename.db'
+        self.cur = self.con.cursor()
 
     def setup(self):
         """
         setup database - create the blogs table, and the posts table
         """
+        self.cur.executescript(SETUP)
 
-    def get_story(self):
+    def get_blog(self, db, userid, blog):
         """
         return visual representation of blog
         """
+        self.cur.execute("SELECT user, blog, rowid from blogs")
 
-    def add_story(self):
+    def add_blog(self):
         """
         add a db and return blog id
         """
