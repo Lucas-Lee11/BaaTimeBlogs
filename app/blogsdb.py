@@ -6,6 +6,21 @@
 import sqlite3
 
 SETUP = """
+CREATE TABLE IF NOT EXISTS blogs (
+    blog_title          TEXT
+    num_blogs           INTEGER DEFAULT 0
+    blog_id             TEXT PRIMARY KEY DEFAULT (hex(randomblob(8)))
+    user_id             INTEGER
+    last_date_edited    DATE DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE IF NOT EXISTS posts (
+    post_title          TEXT
+    post_text           TEXT
+    post_id             TEXT PRIMARY KEY DEFAULT (hex(randomblob(8)))
+    blog_id             INTEGER
+    last_date_edited    DATE DEFAULT CURRENT_TIMESTAMP
+    user_id             INTEGER
+);
 """
 
 class Blog_DB:
@@ -53,7 +68,7 @@ class Blog_DB:
         """
         return visual representation of blog
         """
-        self.cur.execute("SELECT user, blog, rowid from blogs")
+        self.cur.execute("")
 
     def add_blog(self):
         """
