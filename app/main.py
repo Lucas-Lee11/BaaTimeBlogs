@@ -25,28 +25,28 @@ def login():
     """
     return render_template("login.html")
 
-@app.route("/crt_blog")
+@app.route("/crt_blog", methods=["GET", "POST"])
 def crt_blog():
     """
     webpage arrived at upon selecting "create blog"
     """
     return render_template('crt_blog.html')
 
-@app.route("/new_blog")
+@app.route("/new_blog", methods=["GET", "POST"])
 def new_blog():
     """
     returns user to landing page after creating new blog post
     """
     return render_template("homepage.html", username='user1')
 
-@app.route("/edit_blog")
+@app.route("/edit_blog", methods=["GET", "POST"])
 def edit_blog():
     """
     edit post on existing blog
     """
     return render_template("edit_blog.html")
 
-@app.route("/view_blogs")
+@app.route("/view_blogs", methods=["GET", "POST"])
 def view_blogs():
     """
     view blogs from other users
