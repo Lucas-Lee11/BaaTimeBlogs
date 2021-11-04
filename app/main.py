@@ -10,12 +10,20 @@ from flask import render_template, redirect, request, url_for, session
 from app import app
 from app.auth import auth_user, crt_user
 
-@app.route("/", methods=['GET', 'POST']) #, methods=['GET', 'POST'])
+@app.route("/")
+@app.route("/index") #, methods=['GET', 'POST'])
 def index():
     """
-    create the basic login page, currently going straight to homepage
+    homepage creation
     """
     return render_template('homepage.html', username="user1")
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    """
+    login form + response
+    """
+    return render_template("login.html")
 
 @app.route("/crt_blog")
 def crt_blog():

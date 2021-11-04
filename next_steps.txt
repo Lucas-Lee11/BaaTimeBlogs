@@ -8,7 +8,7 @@ REMEMBER, BLOGS AND POSTS ARE DIFFERENT!
 
 EBULLER:
 11/3
-work on: 
+work on: discuss next steps with python/sql
 
 11/2
 work on: crt_blog.html 
@@ -19,7 +19,7 @@ note: currently creates a blog with text directly inside, should have option for
 
 TFAHEY:
 11/3
-work on:
+work on: discuss next steps with python/sql
 
 11/2
 work on: edit_blog.html, homepage.html
@@ -32,7 +32,7 @@ how the dropdown menus work, add a dropdown for the edit_blog button on the home
 
 IMIJACIKA:
 11/3
-work on:
+work on: discuss next steps with python/sql
 
 11/2
 work on: view_blogs.html
@@ -42,7 +42,7 @@ masterlist of blogs with users in ()
 
 AALONSO:
 11/3
-work on: splitting __init__.py
+work on: split __init__.py into multiple py files
 
 11/2
 work on: homepage.html, new_post_old_blog.html, __init__.py
