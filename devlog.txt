@@ -44,15 +44,18 @@ IvanM -- 2021-11-3 00:53
 
 EmmaB -- 2921-11-3 8:20
   Added option to add post to existing blog or to create new blog
-  
+
 TheoF -- 2021-11-3 8:32
   Added Dropdown Menu to Navbar to select which blog to edit
-  
+
 AlejandroA -- 2021-11-3 8:30
   Finished putting together html scaffold, prepared basic python scaffold
-  
+
 AlejandroA -- 2021-11-3 8:03
   Finished a robust draft of python scaffold for discussion 11/4, updated next steps
 
 EmmaB, TheoF -- 2021-11-4 8:40
   Added pseudocode for auth.py
+
+EmmaB, TheoF -- 2021-11-5 8:35
+  Database file is made and we edited code to fit the created database

@@ -4,13 +4,20 @@
 # 2021-10-27
 
 import sqlite3
+import auth
+from flask import render_template, redirect, request, url_for, session, Flask
 
-from flask import render_template, redirect, request, url_for, session
+# from app import app
+# from app.auth import auth_user, crt_user
 
-from app import app
-from app.auth import auth_user, crt_user
+app = Flask(__name__)
+
+auth.database()
 
 @app.route("/")
+def yes():
+    return render_template("homepage.html", username = "user1")
+
 @app.route("/index") #, methods=['GET', 'POST'])
 def index():
     """
