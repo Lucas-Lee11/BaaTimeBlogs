@@ -11,10 +11,25 @@ Theodore Fahey (Dev)
 Something
 
 ## Installation
-1. Clone this repo onto your personal machine
-2. Run in preferred environment: <br>
-`$ pip -r requirements.txt` <br>
-`$ python3 ~/baatimeblogs/app/app.py`
+The following instructions assume that you have Python 3.9 and pip already installed.
+
+1. Clone this repository.
+
+`$ git clone https://github.com/AAWorks/baatimeblogs.git`
+
+2. Create a new virtual environment. (Why?)
+
+`$ python3 -m venv env_name`
+`$ source env/bin/activate`
+
+3. Install project dependencies.
+
+`$ (env_name) pip3 install -r requirements.txt`
+
+4. Run the app.
+
+`$ (env_name) python3 circlestories.py`
+
 
 ## Acknowledgment
 Prof. Topher Mykolyk <br>
