@@ -19,16 +19,16 @@ The following instructions assume that you have Python 3.9 and pip already insta
 
 2. Create a new virtual environment. (Why?)
 
-`$ python3 -m venv your_environment_name`
+`$ python3 -m venv env_name`
 `$ source env/bin/activate`
 
 3. Install project dependencies.
 
-`$ (env) pip3 install -r requirements.txt`
+`$ (env_name) pip3 install -r requirements.txt`
 
 4. Run the app.
 
-`$ (env) python3 circlestories.py`
+`$ (env_name) python3 circlestories.py`
 
 
 ## Acknowledgment
