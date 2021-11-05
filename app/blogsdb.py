@@ -8,18 +8,18 @@ import sqlite3
 SETUP = """
 CREATE TABLE IF NOT EXISTS blogs (
     blog_title          TEXT
+    user_id             INTEGER
     num_blogs           INTEGER DEFAULT 0
     blog_id             TEXT PRIMARY KEY DEFAULT (hex(randomblob(8)))
-    user_id             INTEGER
     last_date_edited    DATE DEFAULT CURRENT_TIMESTAMP
 );
 CREATE TABLE IF NOT EXISTS posts (
     post_title          TEXT
     post_text           TEXT
-    post_id             TEXT PRIMARY KEY DEFAULT (hex(randomblob(8)))
     blog_id             INTEGER
-    last_date_edited    DATE DEFAULT CURRENT_TIMESTAMP
     user_id             INTEGER
+    post_id             TEXT PRIMARY KEY DEFAULT (hex(randomblob(8)))
+    last_date_edited    DATE DEFAULT CURRENT_TIMESTAMP
 );
 """
 
@@ -70,10 +70,22 @@ class Blog_DB:
         """
         self.cur.execute("")
 
-    def add_blog(self):
+    def add_blog_w_starter_post(self, blogname, user_id, postname, post_content):
         """
-        add a db and return blog id
+        add a blog and return blog id
         """
+        self.cur.execute("INSERT INTO blogs(blog_title, user_id) VALUES(?,?)", [blogname, user_id])
+        self.cur.execute("SELECT blog_title, user_id, blog_id FROM blogs")
+        blogdata = self.cur.fetchall()
+        for blog in blogdata:
+            if blogname in blog and user_id in blog:
+                blog_id = blog[2]
+                break
+        self.cur.execute("INSERT INTO posts(post_title, post_text, blog_id, user_id) VALUES(?,?,?,?)", [postname, post_content, blog_id, user_id])
+        self.cur.execute("SELECT * from blogs")
+        print(self.cur.fetchall())
+        self.cur.execute("SELECT * from blogs")
+        print(self.cur.fetchall())
 
     def close(self):
         """
