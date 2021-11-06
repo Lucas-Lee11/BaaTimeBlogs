@@ -57,5 +57,14 @@ AlejandroA -- 2021-11-3 8:03
 EmmaB, TheoF -- 2021-11-4 8:40
   Added pseudocode for auth.py
 
+AlejandroA -- 2021-11-4 8:40
+  Polished python scaffold and alotted work for upcoming days
+
+AlejandroA -- 2021-11-4 11:28
+  Set up table structure for auth.py and blogsdb.py --> users, blogs, and posts
+
 EmmaB, TheoF -- 2021-11-5 8:35
   Database file is made and we edited code to fit the created database
+  
+AlejandroA -- 2021-11-5 8:40
+  Updates to blogsdb.py, added tester file to text sqlite-based operations
