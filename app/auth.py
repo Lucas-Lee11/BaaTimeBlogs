@@ -33,11 +33,9 @@ def validate_new_user(user):
     db = sqlite3.connect(DB_FILE)
     cursor = db.cursor()
     rows = cursor.execute("SELECT username FROM users").fetchall()
-    print(rows)
-    u = "('" + user + "',)"
     for i in rows:
-        print(i)
-        if (i == u):
+        x = ''.join(i)
+        if (x == user):
             return False
     return True
 
@@ -50,6 +48,8 @@ def crt_user(user, pw):
     cursor = db.cursor()
     password = hash(pw)
     cursor.execute("INSERT INTO users(username, password) VALUES(?, ?)", [user, password])
+    db.commit()
+    db.close()
     # """
     # if all inputs pass, create new user with inputs
     # """
@@ -59,10 +59,11 @@ def get_userid(username):
     cursor = db.cursor()
     rows = cursor.execute("SELECT username FROM users").fetchall()
     id = cursor.execute("SELECT user_id FROM users").fetchall()
-    u = "('" + user + "')"
     for i in range(len(rows)):
-        if (rows[i] == u):
-            return id[i][2:len(id)-2]
+        x = ''.join(rows[i])
+        if (x == username):
+            userid = ''.join(id[i])
+            return userid
     # """
     # return user id num
     # """
@@ -71,12 +72,13 @@ def auth_user(user,pw):
     db = sqlite3.connect(DB_FILE)
     cursor = db.cursor()
     p = hash(pw)
-    up = "('" + user + "', '" + p + "')"
-    rows = cursor.execute("SELECT user, password FROM users").fetchall()
+    up = user+p
+    rows = cursor.execute("SELECT username, password FROM users").fetchall()
     for i in rows:
-        if (i == up):
-            return true
-    return false
+        x = ''.join(i)
+        if (x == up):
+            return True
+    return False
     #
     # """
     # authenticates user based off of username & pwd

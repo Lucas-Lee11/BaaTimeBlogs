@@ -11,9 +11,15 @@ from flask import render_template, redirect, request, url_for, session, Flask
 # from app.auth import auth_user, crt_user
 
 app = Flask(__name__)
-auth.database()
-auth.crt_user("cheese","jafe")
-print(auth.validate_new_user("cheese"))
+
+#TESTING AUTH
+# auth.database()
+# auth.crt_user("cheese","jafe")
+# print(auth.validate_new_user("cheese"))
+# print(auth.auth_user("cheese","jafe"))
+# print(auth.auth_user("cheese","j"))
+# print(auth.get_userid("cheese"))
+
 @app.route("/")
 def yes():
     return render_template("homepage.html", username = "user1")
