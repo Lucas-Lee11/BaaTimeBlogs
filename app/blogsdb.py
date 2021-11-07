@@ -40,17 +40,21 @@ class Blog_DB:
             """
             returns full blog text - all posts
             """
+            self.cur.execute('SELECT post_text FROM posts WHERE blog_id=1') #currently equal to 1, needs to change
+            postList = self.cur.fetchall()
 
         def add_post(self, author_id, post):
             """
             add post to blog
             """
+            self.cur.execute("INSERT INTO posts(post_title, post_text, blog_id, user_id) VALUES(?,?,?,?)", [title, text, blog_id, user_id])
 
         def update(self):
             """
             requests data from database for updating
             """
-    
+
+
     def __init__(self, db_file):
         """
         connects to database (db), if none exists, creates one
