@@ -32,7 +32,7 @@ def hash(password: str) -> str:
 def validate_new_user(user):
     db = sqlite3.connect(DB_FILE)
     cursor = db.cursor()
-    rows = cursor.execute("SELECT username FROM users").fetchall()
+    rows = cursor.execute("SELECT username FROM users WHERE username LIKE '" + user[0] + "%'").fetchall()
     for i in rows:
         x = ''.join(i)
         if (x == user):
@@ -54,14 +54,14 @@ def crt_user(user, pw):
     # if all inputs pass, create new user with inputs
     # """
 
-def get_userid(username):
+def get_userid(user):
     db = sqlite3.connect(DB_FILE)
     cursor = db.cursor()
-    rows = cursor.execute("SELECT username FROM users").fetchall()
-    id = cursor.execute("SELECT user_id FROM users").fetchall()
+    rows = cursor.execute("SELECT username FROM users WHERE username LIKE '" + user[0] + "%'").fetchall()
+    id = cursor.execute("SELECT user_id FROM users WHERE username LIKE '" + user[0] + "%'").fetchall()
     for i in range(len(rows)):
         x = ''.join(rows[i])
-        if (x == username):
+        if (x == user):
             userid = ''.join(id[i])
             return userid
     # """
@@ -73,7 +73,7 @@ def auth_user(user,pw):
     cursor = db.cursor()
     p = hash(pw)
     up = user+p
-    rows = cursor.execute("SELECT username, password FROM users").fetchall()
+    rows = cursor.execute("SELECT username, password FROM users WHERE username LIKE '" + user[0] + "%'").fetchall()
     for i in rows:
         x = ''.join(i)
         if (x == up):

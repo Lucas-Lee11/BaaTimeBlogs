@@ -77,3 +77,6 @@ EmmaB -- 2021-11-7
 
 IvanM -- 2021-11-7
   Added to functions in blogsdb.py
+
+EmmaB -- 2021-11-7
+  Added wildcards to auth.py

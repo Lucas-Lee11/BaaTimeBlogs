@@ -14,11 +14,12 @@ app = Flask(__name__)
 
 #TESTING AUTH
 # auth.database()
-# auth.crt_user("cheese","jafe")
-# print(auth.validate_new_user("cheese"))
-# print(auth.auth_user("cheese","jafe"))
-# print(auth.auth_user("cheese","j"))
-# print(auth.get_userid("cheese"))
+# auth.crt_user("c","jafe")
+# auth.crt_user("fe","ld")
+# print(auth.validate_new_user("c"))
+# print(auth.auth_user("c","jafe"))
+# print(auth.auth_user("c","j"))
+# print(auth.get_userid("c"))
 
 @app.route("/")
 def yes():
