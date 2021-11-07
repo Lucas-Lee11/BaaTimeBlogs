@@ -69,14 +69,14 @@ EmmaB, TheoF -- 2021-11-5 8:35
 AlejandroA -- 2021-11-5 8:40
   Updates to blogsdb.py, added tester file to text sqlite-based operations
 
-EmmaB -- 2021--11-7
+EmmaB -- 2021--11-7 3:30
   Created functions for auth.py
 
-EmmaB -- 2021-11-7
+EmmaB -- 2021-11-7 4:00
   Tested functions from auth.py
 
-IvanM -- 2021-11-7
+IvanM -- 2021-11-7 5:33
   Added to functions in blogsdb.py
 
-EmmaB -- 2021-11-7
+EmmaB -- 2021-11-7 5:38
   Added wildcards to auth.py
