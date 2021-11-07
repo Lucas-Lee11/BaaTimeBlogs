@@ -74,3 +74,6 @@ EmmaB -- 2021--11-7
 
 EmmaB -- 2021-11-7
   Tested functions from auth.py
+
+IvanM -- 2021-11-7
+  Added to functions in blogsdb.py
