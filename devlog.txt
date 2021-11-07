@@ -65,6 +65,9 @@ AlejandroA -- 2021-11-4 11:28
 
 EmmaB, TheoF -- 2021-11-5 8:35
   Database file is made and we edited code to fit the created database
-  
+
 AlejandroA -- 2021-11-5 8:40
   Updates to blogsdb.py, added tester file to text sqlite-based operations
+
+EmmaB -- 2021--11-7
+  Created functions for auth.py
