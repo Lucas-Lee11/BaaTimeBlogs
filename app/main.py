@@ -4,7 +4,7 @@
 # 2021-10-27
 
 import sqlite3
-import auth, blogsdb
+import auth # blogsdb
 from os import urandom
 from flask import render_template, redirect, request, url_for, session, Flask
 
@@ -14,7 +14,7 @@ from flask import render_template, redirect, request, url_for, session, Flask
 app = Flask(__name__)
 app.secret_key = urandom(32)
 
-blog_manager = blogsdb.BlogManager("blogs.db")
+#blog_manager = blogsdb.BlogManager("blogs.db")
 #TESTING AUTH
 auth.database()
 # auth.crt_user("c","jafe")
@@ -26,19 +26,21 @@ auth.database()
 
 @app.route("/", methods=['GET','POST'])
 def start():
+    if 'username' in session:
+        return render_template("homepage.html", username = session['username'])
     return render_template("login.html", register_message='')
 
 @app.route("/register", methods=['GET','POST'])
 def register():
     username = request.args.get("regular_username")
     password = request.args.get("regular_password")
-    if(auth.validatebject has no attribute 'auth_user'_new_user(username)):
+    if(auth.validate_new_user(username)):
         auth.crt_user(username,password)
         return render_template("login.html", register_message = "Sucessfully registered! Login!")
     return render_template("login.html", register_message = "User already exists. Try again with a different username.")
 
-@app.route("/auth", methods=['GET','POST'])
-def auth():
+@app.route("/authenticate", methods=['GET','POST'])
+def authenticate():
     user = request.args.get("login_username")
     password = request.args.get("login_password")
     if(auth.auth_user(user,password)):
