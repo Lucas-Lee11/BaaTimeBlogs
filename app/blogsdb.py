@@ -7,40 +7,34 @@ import sqlite3
 
 SETUP = """
 CREATE TABLE IF NOT EXISTS blogs (
-    blog_title          TEXT
-    user_id             INTEGER
-    num_blogs           INTEGER DEFAULT 0
-    blog_id             TEXT PRIMARY KEY DEFAULT (hex(randomblob(8)))
+    blog_title          TEXT,
+    user_id             INTEGER,
+    num_blogs           INTEGER DEFAULT 1,
+    blog_id             TEXT PRIMARY KEY DEFAULT (hex(randomblob(8))),
     last_date_edited    DATE DEFAULT CURRENT_TIMESTAMP
 );
 CREATE TABLE IF NOT EXISTS posts (
-    post_title          TEXT
-    post_text           TEXT
-    blog_id             INTEGER
-    user_id             INTEGER
-    post_id             TEXT PRIMARY KEY DEFAULT (hex(randomblob(8)))
+    post_title          TEXT,
+    post_text           TEXT,
+    blog_id             TEXT,
+    user_id             INTEGER,
+    post_id             TEXT PRIMARY KEY DEFAULT (hex(randomblob(8))),
     last_date_edited    DATE DEFAULT CURRENT_TIMESTAMP
 );
 """
 
 class Blog_DB:
     class Blog:
-        def __init__(self, db, keys, values):
-            self.db = db
-            self.keys = keys
-            self.values = list(values)
-            #need a way to acces columns
-        
         def __repr__(self):
             """
             string represenation of blog objs
             """
 
-        def repr_blog(self):
+        def repr_blog(self, blog_id):
             """
             returns full blog text - all posts
             """
-            self.cur.execute('SELECT post_text FROM posts WHERE blog_id=1') #currently equal to 1, needs to change
+            self.cur.execute(f'SELECT post_text FROM posts WHERE blog_id={blog_id}') #currently equal to 1, needs to change
             postList = self.cur.fetchall()
 
         def add_post(self, author_id, post):
@@ -68,28 +62,20 @@ class Blog_DB:
         """
         self.cur.executescript(SETUP)
 
-    def get_blog(self, db, userid, blog):
+    def get_blog_id(self, db, userid, blog):
         """
         return visual representation of blog
         """
-        self.cur.execute("")
+        self.cur.execute()
 
     def add_blog_w_starter_post(self, blogname, user_id, postname, post_content):
         """
         add a blog and return blog id
         """
         self.cur.execute("INSERT INTO blogs(blog_title, user_id) VALUES(?,?)", [blogname, user_id])
-        self.cur.execute("SELECT blog_title, user_id, blog_id FROM blogs")
-        blogdata = self.cur.fetchall()
-        for blog in blogdata:
-            if blogname in blog and user_id in blog:
-                blog_id = blog[2]
-                break
-        self.cur.execute("INSERT INTO posts(post_title, post_text, blog_id, user_id) VALUES(?,?,?,?)", [postname, post_content, blog_id, user_id])
-        self.cur.execute("SELECT * from blogs")
-        print(self.cur.fetchall())
-        self.cur.execute("SELECT * from blogs")
-        print(self.cur.fetchall())
+        self.cur.execute(f"SELECT blog_id FROM blogs WHERE blog_title LIKE '{blogname}%'")
+        blog_id = self.cur.fetchone()
+        self.cur.execute("INSERT INTO posts(post_title, post_text, blog_id, user_id) VALUES(?,?,?,?)", [postname, post_content, blog_id[0], user_id])
 
     def close(self):
         """
@@ -105,3 +91,7 @@ class Blog_DB:
         """
         self.close()
         print("BlogDB Closed")
+
+blogsdb=Blog_DB("discobandit.db")
+blogsdb.setup()
+blogsdb.add_blog_w_starter_post("testblog", 12345678, "testpost", "blahblahblahblah")
