@@ -37,15 +37,21 @@ class BlogManager:
         """
         self.cur.executescript(SETUP)
 
-    def check_blogname_exists(self, new_blogname, user_id, postname, post_content):
+    def check_name_exists(self, new_name, user_id):
         """
         check if blog title exists in user's blogs, if not then run add_blog_w_starter_post
         """
         self.cur.execute(f"SELECT blogname FROM blogs WHERE user_id LIKE '{user_id}%'")
         blognames = self.cur.fetchall()
-        if new_blogname in blognames:
+        if new_name in blognames:
             return True
         return False
+    
+    def check_blogname_exists(self, new_blogname, user_id):
+        self.check_name_exists(new_blogname, user_id)
+
+    def check_postname_exists(self, new_postname, user_id):
+        self.check_name_exists(self, new_postname, user_id)
 
     def add_blog_w_starter_post(self, blogname, user_id, postname, post_content):
         """
@@ -56,13 +62,26 @@ class BlogManager:
         blog_id = self.cur.fetchone()
         self.cur.execute("INSERT INTO posts(post_title, post_text, blog_id, user_id) VALUES(?,?,?,?)", [postname, post_content, blog_id[0], user_id])
 
-    def repr_blog(self, blog_id):
-        self.cur.execute(f'SELECT post_text FROM posts WHERE blog_id={blog_id}') #currently equal to 1, needs to change
-        postList = self.cur.fetchall()
-        return postList
-
     def add_post(self, blog_id, postname, post_content, user_id):
         self.cur.execute("INSERT INTO posts(post_title, post_text, blog_id, user_id) VALUES(?,?,?,?)", [postname, post_content, blog_id, user_id])
+
+    def edit_post(self, edit_type, content, post_id):
+        self.cur.execute(f"UPDATE posts SET {edit_type}='{content}' WHERE post_id LIKE '{post_id}%'")
+
+    def edit_post_content(self, post_content, post_id):
+        self.edit_post(self, "post_content", post_content, post_id)    
+
+    def edit_post_title(self, postname, post_id):
+        self.edit_post(self, "post_title", postname, post_id)    
+
+    def repr_blog(self, blog_id):
+        self.cur.execute(f"SELECT post_text FROM posts WHERE blog_id='{blog_id}'") #currently equal to 1, needs to change
+        postList = self.cur.fetchall()
+        return postList
+    
+    def list_user_blogs_by_datetime(self):
+        self.cur.execute(f"SELECT * FROM blogs ORDER BY date(last_date_edited) DESC Limit 1")
+        return self.cur.fetchall()
 
     def close(self):
         """
