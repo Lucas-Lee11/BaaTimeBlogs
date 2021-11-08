@@ -23,32 +23,7 @@ CREATE TABLE IF NOT EXISTS posts (
 );
 """
 
-class Blog_DB:
-    class Blog:
-        def __repr__(self):
-            """
-            string represenation of blog objs
-            """
-
-        def repr_blog(self, blog_id):
-            """
-            returns full blog text - all posts
-            """
-            self.cur.execute(f'SELECT post_text FROM posts WHERE blog_id={blog_id}') #currently equal to 1, needs to change
-            postList = self.cur.fetchall()
-
-        def add_post(self, author_id, post):
-            """
-            add post to blog
-            """
-            self.cur.execute("INSERT INTO posts(post_title, post_text, blog_id, user_id) VALUES(?,?,?,?)", [title, text, blog_id, user_id])
-
-        def update(self):
-            """
-            requests data from database for updating
-            """
-
-
+class BlogManager:
     def __init__(self, db_file):
         """
         connects to database (db), if none exists, creates one
@@ -62,20 +37,32 @@ class Blog_DB:
         """
         self.cur.executescript(SETUP)
 
-    def get_blog_id(self, db, userid, blog):
+    def check_blogname_exists(self, new_blogname, user_id, postname, post_content):
         """
-        return visual representation of blog
+        check if blog title exists in user's blogs, if not then run add_blog_w_starter_post
         """
-        self.cur.execute()
+        self.cur.execute(f"SELECT blogname FROM blogs WHERE user_id LIKE '{user_id}%'")
+        blognames = self.cur.fetchall()
+        if new_blogname in blognames:
+            return True
+        return False
 
     def add_blog_w_starter_post(self, blogname, user_id, postname, post_content):
         """
         add a blog and return blog id
         """
         self.cur.execute("INSERT INTO blogs(blog_title, user_id) VALUES(?,?)", [blogname, user_id])
-        self.cur.execute(f"SELECT blog_id FROM blogs WHERE blog_title LIKE '{blogname}%'")
+        self.cur.execute(f"SELECT blog_id FROM blogs WHERE blog_title LIKE '{blogname}%' AND user_id LIKE '{user_id}%'")
         blog_id = self.cur.fetchone()
         self.cur.execute("INSERT INTO posts(post_title, post_text, blog_id, user_id) VALUES(?,?,?,?)", [postname, post_content, blog_id[0], user_id])
+
+    def repr_blog(self, blog_id):
+        self.cur.execute(f'SELECT post_text FROM posts WHERE blog_id={blog_id}') #currently equal to 1, needs to change
+        postList = self.cur.fetchall()
+        return postList
+
+    def add_post(self, blog_id, postname, post_content, user_id):
+        self.cur.execute("INSERT INTO posts(post_title, post_text, blog_id, user_id) VALUES(?,?,?,?)", [postname, post_content, blog_id, user_id])
 
     def close(self):
         """
@@ -92,6 +79,6 @@ class Blog_DB:
         self.close()
         print("BlogDB Closed")
 
-blogsdb=Blog_DB("discobandit.db")
-blogsdb.setup()
-blogsdb.add_blog_w_starter_post("testblog", 12345678, "testpost", "blahblahblahblah")
+blog_manager=BlogManager("discobandit.db")
+blog_manager.setup()
+blog_manager.add_blog_w_starter_post("testblog", 12345678, "testpost", "blahblahblahblah")

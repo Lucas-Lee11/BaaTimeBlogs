@@ -4,7 +4,7 @@
 # 2021-10-27
 
 import sqlite3
-import auth
+import auth, blogsdb
 from os import urandom
 from flask import render_template, redirect, request, url_for, session, Flask
 
@@ -14,6 +14,7 @@ from flask import render_template, redirect, request, url_for, session, Flask
 app = Flask(__name__)
 app.secret_key = urandom(32)
 
+blog_manager = blogsdb.BlogManager("blogs.db")
 #TESTING AUTH
 auth.database()
 # auth.crt_user("c","jafe")
