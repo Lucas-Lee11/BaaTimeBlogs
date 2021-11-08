@@ -86,3 +86,9 @@ EmmaB, TheoF -- 2021-11-8 8:24
 
 EmmaB, TheoF -- 2021-11-8 8:40
   Added backbone for logging in users. 
+
+IvanM -- 2021-11-8 8:40
+  Creating simplified tester html files
+  
+AlejandroA -- 2021-11-8 9:21
+  Wrapping up blogsdb.py and beginning to integrate into main.py
