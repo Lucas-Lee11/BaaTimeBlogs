@@ -90,6 +90,11 @@ def view_blogs():
     """
     return render_template("view_blogs.html")
 
+@app.route("/out", methods=["GET","POST"])
+def logout():
+    session.pop("username", default=None)
+    return render_template("login.html", register_message='')
+
 if __name__ == "__main__": #false if this file imported as module
     #enable debugging, auto-restarting of server when this file is modified
     app.debug = True

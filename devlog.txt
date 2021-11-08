@@ -98,3 +98,6 @@ AlejandroA -- 2021-11-8 11:01
 
 EmmaB -- 2021-11-8 1:00
   Successfully logged in to site
+
+EmmaB -- 2021-11-8 1:10
+  Added logout button to homepage
