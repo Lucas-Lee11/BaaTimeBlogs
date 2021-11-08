@@ -91,4 +91,7 @@ IvanM -- 2021-11-8 8:40
   Creating simplified tester html files
   
 AlejandroA -- 2021-11-8 9:21
-  Wrapping up blogsdb.py and beginning to integrate into main.py
+  Worked on blogsdb.py and beginning to integrate into main.py
+
+AlejandroA -- 2021-11-8 11:01
+  Wrapping up blogsdb.py
