@@ -104,3 +104,6 @@ EmmaB -- 2021-11-8 1:10
 
 EmmaB -- 2021-11-8 1:37
   Check if username or password is empty and changed placement of logout button.
+
+EmmaB -- 2021-11-8 1:43
+  Changed register and login into POST instead of GET

@@ -32,8 +32,8 @@ def start():
 
 @app.route("/register", methods=['GET','POST'])
 def register():
-    username = request.args.get("regular_username")
-    password = request.args.get("regular_password")
+    username = request.form['regular_username']
+    password = request.form['regular_password']
     if(username==''):
         return render_template("login.html", register_message = "Username can't be blank." )
     if(password==''):
@@ -45,8 +45,8 @@ def register():
 
 @app.route("/authenticate", methods=['GET','POST'])
 def authenticate():
-    user = request.args.get("login_username")
-    password = request.args.get("login_password")
+    user = request.form['login_username']
+    password = request.form['login_password']
     if(user==''):
         return render_template("login.html", register_message = "Username can't be blank." )
     if(password==''):
