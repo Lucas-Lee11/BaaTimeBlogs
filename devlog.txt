@@ -101,3 +101,6 @@ EmmaB -- 2021-11-8 1:00
 
 EmmaB -- 2021-11-8 1:10
   Added logout button to homepage
+
+EmmaB -- 2021-11-8 1:37
+  Check if username or password is empty and changed placement of logout button.

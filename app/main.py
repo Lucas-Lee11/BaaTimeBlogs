@@ -4,7 +4,7 @@
 # 2021-10-27
 
 import sqlite3
-import auth # blogsdb
+import auth #, blogsdb
 from os import urandom
 from flask import render_template, redirect, request, url_for, session, Flask
 
@@ -26,7 +26,7 @@ auth.database()
 
 @app.route("/", methods=['GET','POST'])
 def start():
-    if 'username' in session:
+    if 'username' in session: #is someone logged in
         return render_template("homepage.html", username = session['username'])
     return render_template("login.html", register_message='')
 
@@ -34,6 +34,10 @@ def start():
 def register():
     username = request.args.get("regular_username")
     password = request.args.get("regular_password")
+    if(username==''):
+        return render_template("login.html", register_message = "Username can't be blank." )
+    if(password==''):
+        return render_template("login.html", register_message = "Password can't be blank.")
     if(auth.validate_new_user(username)):
         auth.crt_user(username,password)
         return render_template("login.html", register_message = "Sucessfully registered! Login!")
@@ -43,6 +47,10 @@ def register():
 def authenticate():
     user = request.args.get("login_username")
     password = request.args.get("login_password")
+    if(user==''):
+        return render_template("login.html", register_message = "Username can't be blank." )
+    if(password==''):
+        return render_template("login.html", register_message = "Password can't be blank.")
     if(auth.auth_user(user,password)):
         session['username'] = user
         return render_template("homepage.html", username=user)
