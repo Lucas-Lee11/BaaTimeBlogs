@@ -64,6 +64,7 @@ def get_userid(user):
         if (x == user):
             userid = ''.join(id[i])
             return userid
+    return "USERID does not exist"
     # """
     # return user id num
     # """
@@ -73,7 +74,7 @@ def auth_user(user,pw):
     cursor = db.cursor()
     p = hash(pw)
     up = user+p
-    rows = cursor.execute("SELECT username, password FROM users WHERE username LIKE '" + user[0] + "%'").fetchall()
+    rows = cursor.execute("SELECT username, password FROM users").fetchall()
     for i in rows:
         x = ''.join(i)
         if (x == up):

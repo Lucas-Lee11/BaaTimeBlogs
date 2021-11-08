@@ -5,15 +5,17 @@
 
 import sqlite3
 import auth
+from os import urandom
 from flask import render_template, redirect, request, url_for, session, Flask
 
 # from app import app
 # from app.auth import auth_user, crt_user
 
 app = Flask(__name__)
+app.secret_key = urandom(32)
 
 #TESTING AUTH
-# auth.database()
+auth.database()
 # auth.crt_user("c","jafe")
 # auth.crt_user("fe","ld")
 # print(auth.validate_new_user("c"))
@@ -21,9 +23,27 @@ app = Flask(__name__)
 # print(auth.auth_user("c","j"))
 # print(auth.get_userid("c"))
 
-@app.route("/")
-def yes():
-    return render_template("homepage.html", username = "user1")
+@app.route("/", methods=['GET','POST'])
+def start():
+    return render_template("login.html", register_message='')
+
+@app.route("/register", methods=['GET','POST'])
+def register():
+    username = request.args.get("regular_username")
+    password = request.args.get("regular_password")
+    if(auth.validatebject has no attribute 'auth_user'_new_user(username)):
+        auth.crt_user(username,password)
+        return render_template("login.html", register_message = "Sucessfully registered! Login!")
+    return render_template("login.html", register_message = "User already exists. Try again with a different username.")
+
+@app.route("/auth", methods=['GET','POST'])
+def auth():
+    user = request.args.get("login_username")
+    password = request.args.get("login_password")
+    if(auth.auth_user(user,password)):
+        session['username'] = user
+        return render_template("homepage.html", username=user)
+    return render_template("login.html", register_message = "Username or password is wrong. Try again.")
 
 @app.route("/index") #, methods=['GET', 'POST'])
 def index():

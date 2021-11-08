@@ -80,3 +80,9 @@ IvanM -- 2021-11-7 5:33
 
 EmmaB -- 2021-11-7 5:38
   Added wildcards to auth.py
+
+EmmaB, TheoF -- 2021-11-8 8:24
+  Added register function to login
+
+EmmaB, TheoF -- 2021-11-8 8:40
+  Added backbone for logging in users. 
