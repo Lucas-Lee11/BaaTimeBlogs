@@ -6,7 +6,7 @@ db = sqlite3.connect("blogs.db")
 
 cur = db.cursor() #facilitate db ops
 
-def add_blog_w_starter_post():
+def tester():
     """
     add a blog and return blog id
     """
@@ -15,6 +15,6 @@ def add_blog_w_starter_post():
     cur.execute("SELECT * from posts")
     print(cur.fetchall())
 
-add_blog_w_starter_post()
+tester()
 
 db.close()

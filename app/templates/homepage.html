@@ -10,35 +10,7 @@ P00
   <head>
     <title>Welcome</title>
     <style>
-.navbuttons .navbutton{
-  background-color: rgb(211, 211, 211);
-  border: none;
-  color: rgb(0, 0, 0);
-  padding: 15px 0px;
-  text-align: center;
-  text-decoration: none;
-  font-size: 18px;
-  cursor: pointer;
-  float: left;
-  width: 33%;
-  font-family: Copperplate;
-  font-style: normal;
-  font-variant: small-caps;
-  font-weight: 700;
-  outline: none;
-  transition: all 0.3s ease-out;
-}
-.navbuttons .navbutton:hover{
-  background-color: rgba(0, 0, 0, 0.4);
-}
-.container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -moz-transform: translateX(-50%) translateY(-50%);
-    -webkit-transform: translateX(-50%) translateY(-50%);
-    transform: translateX(-50%) translateY(-50%);
-}
+
 #footer {
   background-color: rgba(211, 211, 211);
   text-align: center;
@@ -51,71 +23,13 @@ P00
   right:0;
   height:30px;
 }
-a:link{
-  color: blue;
-}
-a:visited{
-  color: dodgerblue;
-}
-a:hover{
-  color: cyan;
-}
-a:active{
-  color: cyan;
-}
- .dropbtn {
-          background-color: rgb(211, 211, 211);
-          color: black;
-          padding: 15px 0px;
-          border: none;
-          width: 100%;
-          font-family: Copperplate;
-          font-style: normal;
-          font-variant: small-caps;
-          font-weight: 700;
-          text-align: center;
-          font-size: 18px;
-        }
-        .dropdown {
-          position: relative;
-          display: inline-block;
-          width: 33%;
-        }
-        .dropdown-content {
-          display: none;
-          position: absolute;
-          background-color: #f1f1f1;
-          min-width: 160px;
-          box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-          z-index: 1;
-        }
-        .dropdown-content a {
-          color: black;
-          padding: 12px 16px;
-          text-decoration: none;
-          display: block;
-        }
-        .dropdown-content a:hover {background-color: #ddd;}
-        .dropdown:hover .dropdown-content {display: block;}
-        .dropdown:hover .dropbtn {background-color: #3e8e41;}
-
-	</style>
+  	</style>
   </head>
-  <body>
-    <div class="navbuttons">
+<body>
+  <div class="navbuttons">
       <a href="{{ url_for('crt_blog') }}" class="navbutton"><strong>Create Blogs</strong></a>
-      <div class="dropdown">
-    <button class="dropbtn">Edit Post
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="{{ url_for('edit_blog')}}">Blog A</a>
-      <a href="{{ url_for('edit_blog')}}">Blog B</a>
-      <a href="{{ url_for('edit_blog')}}">Blog C</a>
-    </div>
-  </div>
-
       <a href="{{ url_for('view_blogs')}}" class="navbutton"><strong>View Blogs</strong></a>
+      <a href="{{ url_for('edit_blog')}}"><strong>Edit Blogs</strong></a>
     </div>
     <br>
     <h1 class="container">Welcome {{ username }}! <br>
@@ -128,3 +42,11 @@ a:active{
     </div>
   </body>
 </html>
+<!-- <form>
+      <input type="radio" id = "blog1" name = "blog" value = "Blog1">
+          <label for="blog1"> Blog 1 </label><br>
+      <input type="radio" id = "blog2" name="blog" value = "Blog2">
+	<label for="blog2"> Blog 2 </label><br>
+      <input type="radio" id = "blog3" name="blog" value = "Blog3">
+	<label for="blog3"> Blog 3 </label><br>
+	</form> -->
