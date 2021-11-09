@@ -119,3 +119,9 @@ AlejandroA -- 2021-11-9 12:27
 
 IvanM -- 2021-11-9 1:27
   Updated design document with recent updates
+
+TheoF -- 2021-11-9 8:16
+  Routed edit_post to edit_blog
+
+EmmaB, TheoF -- 2021-11-9 8:34
+  Added homepage link to crt, view, and edit blog
