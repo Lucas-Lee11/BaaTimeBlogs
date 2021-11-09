@@ -82,6 +82,13 @@ def crt_blog():
 @app.route("/new_post", methods=["GET", "POST"])
 def new_blog():
     userid = auth.get_userid(session['username'])
+    blog = request.args['blog']
+    postname = request.args['postname']
+    posttext = request.args['body']
+    if(blog=="newblog"):
+        blogname = request.args['blogname']
+        # print(request.args['blogname'])
+    # print(blog+' '+postname+' '+posttext)
     return render_template("homepage.html", username=session['username'])
     """
     returns user to landing page after creating new blog post
