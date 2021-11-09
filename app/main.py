@@ -97,7 +97,9 @@ def view_blogs():
     view blogs from other users
     """
     return render_template("view_blogs.html")
-
+@app.route("/edit_post", methods = ["GET", "POST"])
+def edit_post():
+    return render_template("edit_post.html")
 @app.route("/out", methods=["GET","POST"])
 def logout():
     session.pop("username", default=None)
