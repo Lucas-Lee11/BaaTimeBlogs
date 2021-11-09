@@ -35,23 +35,10 @@ class BlogManager:
     begin helper methods
     """
 
-    def check_name_exists(self, new_name, user_id):
-        """
-        check if blog title exists in user's blogs, if not then run add_blog_w_starter_post
-        """
-        self.cur.execute(f"SELECT blogname FROM blogs WHERE user_id LIKE '{user_id}%'")
-        blognames = self.cur.fetchall()
-        if new_name in blognames:
-            return True
-        return False
-
-    def check_blogname_exists(self, new_blogname, user_id):
-        self.check_name_exists(new_blogname, user_id)
-
-    def check_postname_exists(self, new_postname, user_id):
-        self.check_name_exists(self, new_postname, user_id)
-
     def get_blogID(self, user_id, blogname):
+        """
+        helper method; returns blog id; requires user id and name of blog
+        """
         self.cur.execute(f"SELECT blog_id FROM blogs WHERE blog_title LIKE '{blogname}%' AND user_id LIKE '{user_id}%'")
         blog_id = self.cur.fetchone()
         return blog_id[0]
@@ -62,32 +49,67 @@ class BlogManager:
         post_id = self.cur.fetchone()
         return post_id[0]
 
+    def check_name_exists(self, new_name, user_id, nametype, name_loc, postcheck):
+        """
+        helper method; returns True/False; see wrappers for specifications
+        """
+        self.cur.execute(f"SELECT {nametype} FROM {name_loc} WHERE user_id LIKE '{user_id}%'{postcheck}")
+        names = [i[0] for i in self.cur.fetchall()]
+        if new_name in names:
+            return True
+        return False
+
+    def check_blogname_exists(self, new_blogname, user_id):
+        """
+        checkname wrapper; 
+        checks if user already has a blog with the name they are trying to use;
+        requires user id and title of blog user is trying to create;
+        """
+        return self.check_name_exists(new_blogname, user_id, "blog_title", "blogs", "")
+
+    def check_postname_exists(self, new_postname, user_id, blogname):
+        """
+        checkname wrapper;
+        checks if a post title already exists under that blog;
+        requires user id, title of post user is trying to create, and name of blog post is being created in;
+        """
+        blog_id = self.get_blogID(user_id, blogname)
+        return self.check_name_exists(new_postname, user_id, "post_title", "posts", f" AND blog_id LIKE '{blog_id}'")
+
     """
     end helper methods
     """
 
     def setup(self):
         """
-        setup database - create the blogs table, and the posts table
+        private method; sets up blogs and posts table in database; no parameters
         """
         self.cur.executescript(SETUP)
 
     def add_blog_w_starter_post(self, blogname, user_id, postname, post_content):
         """
-        add a blog and return blog id
+        public method; creates blog with one post; requires title of blog, user id, title of post, and content to be added into that post
         """
         self.cur.execute("INSERT INTO blogs(blog_title, user_id) VALUES(?,?)", [blogname, user_id])
         blog_id = self.get_blogID(user_id, blogname)
-        self.cur.execute("INSERT INTO posts(post_title, post_text, blog_id, user_id) VALUES(?,?,?,?)", [postname, post_content, blog_id[0], user_id])
+        self.cur.execute("INSERT INTO posts(post_title, post_text, blog_id, user_id) VALUES(?,?,?,?)", [postname, post_content, blog_id, user_id])
 
     def add_post(self, blogname, postname, post_content, user_id):
+        """
+        public method; adds post to existing blog; requires name of blog, title of post, content of post, and user id
+        """
         blog_id = self.get_blogID(user_id, blogname)
         self.cur.execute("INSERT INTO posts(post_title, post_text, blog_id, user_id) VALUES(?,?,?,?)", [postname, post_content, blog_id, user_id])
         self.cur.execute(f"UPDATE blogs SET num_blogs = num_blogs + 1 WHERE blog_id LIKE '{blog_id}%'")
     
     def del_post(self, blogname, postname, user_id):
+        """
+        public method; deletes post from existing blog; requires name of blog post is in, title of post, and user id
+        """
         post_id = self.get_postID(user_id, blogname, postname)
+        blog_id = self.get_blogID(user_id, blogname)
         self.cur.execute(f"DELETE FROM posts WHERE post_id LIKE '{post_id}'")
+        self.cur.execute(f"UPDATE blogs SET num_blogs=num_blogs-1 WHERE blog_id LIKE '{blog_id}'") #lowers postcounter in that blog by one
 
     def get_post_content(self, postname, user_id, blogname):
         post_id = self.get_postID(user_id, blogname, postname)
@@ -135,12 +157,14 @@ blog_manager=BlogManager("discobandit.db")
 #WORKS 
 #blog_manager.setup()
 #WORKS 
-#blog_manager.add_blog_w_starter_post("testblog", "12345678", "testpost", "blahblahblahblah")
+# blog_manager.add_blog_w_starter_post("blahblog", "12345678", "blahpost", "blahblahblah")
 #WORKS blog_manager.add_blog_w_starter_post("blog_for_editing", "23456789", "post_to_edit", "blahdiblah")
-#WORKS manager.add_post("testblog", "added_post", "it works!", "12345678")
+#WORKS blog_manager.add_post("testblog", "testpost", "it works!", "12345678")
 #WORKS blog_manager.edit_post_title("edited_post", "post_to_edit", 23456789, "blog_for_editing")
 #WORKS blog_manager.edit_post_content("blahdoblah", "edited_post", 23456789, "blog_for_editing")
 #WORKS print(blog_manager.get_post_content("testpost", "12345678", "testblog"))
 #WORKS print(blog_manager.repr_blog("23456789", "blog_for_editing"))
 #WORKS print(blog_manager.list_blogs_by_datetime())
 #WORKS blog_manager.del_post("testblog", "added_post", "12345678")
+#WORKS print(blog_manager.check_blogname_exists("testblog", "12345678"))
+#WORKS print(blog_manager.check_postname_exists("testpost", "12345678", "testblog"))
