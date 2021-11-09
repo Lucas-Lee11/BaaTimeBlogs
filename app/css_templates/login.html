@@ -1,0 +1,41 @@
+<!--
+Baa Time — Alejandro Alonso, Ivan Mijacika, Theodore Fahey, Emma Buller
+SoftDev
+P00
+2021-10-27
+-->
+
+<html>
+
+  <head>
+    <title> LOGIN </title>
+  </head>
+
+  <body>
+    <h1> Introducing Baa Time Blogs! </h1>
+    <h2> From Alejandro Alonso, Ivan Mijacika, Emma Buller, and Theo Fahey </h2>
+    <br>
+    <h3>
+      {{register_message}}
+    </h3>
+    <br>
+    <h3>
+      Login below (username, password):
+    </h3>
+    <form action="/authenticate" method="POST">
+      <input type="text" name="login_username">
+      <input type="password" name="login_password">
+      <input type="submit" name="sub1">
+    </form>
+    <h3>
+        OR Register (username, password):
+    </h3>
+    <form action="/register" method="POST">
+        <input type="text" name="regular_username">
+        <input type="text" name="regular_password">
+        <input type="submit" name="sub1">
+    </form>
+    <br>
+  </body>
+
+</html>
