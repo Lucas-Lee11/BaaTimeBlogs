@@ -1,0 +1,50 @@
+<!-- 
+Baa Time — Alejandro Alonso, Ivan Mijacika, Theodore Fahey, Emma Buller
+SoftDev
+P00
+2021-10-27
+-->
+<html>
+    <head>
+        <title> Edit Blog </title>
+        <style>
+            #footer {
+              background-color: rgba(211, 211, 211);
+              text-align: center;
+              padding: 10px;
+              font-size: 10px;
+              color: rgb(0, 0, 0);
+              position:fixed;
+              bottom:0;
+              left:0;
+              right:0;
+              height:30px;
+            }
+           \
+            
+        </style>
+    </head>
+        <body>
+            <form action = "/edit_blog">
+                <label for="editname"> Change Post Title </label> <br>
+                <input type= "text" id="editname" name="editname"><br>
+                <label for= "editpost"> Edit Your Post </label> <br>
+                <textarea id= "editpost" name = "editpost"> </textarea> <br> <br>
+                <strong>Which Post </strong><br>
+	        <input type="radio" id = "post1" name = "post" value = "Post1">
+          <label for="post"> Post 1 </label><br>
+      <input type="radio" id = "post2" name="post" value = "Post2">
+	<label for="post2"> Post2 </label><br>
+ <input type="submit" value ="post"> <br>
+                        <a href= "/" > Submit </a> <!-- currently routes to homepage, will select post to edit in future-->
+                    </div>
+                  </div>
+  
+              </div>
+          <div id="footer">
+                  <p>Baa Time | Alejandro Alonso, Emma Buller, Theo Fahey, Ivan Mijacika | <a href='https://github.com/AAWorks/BaaTimeBlogs'>Github Repo</a> | Copyrights &copy; 2020 All Rights Reserved | Last Update: Nov 2021</p>
+          </div>
+                
+   </body>
+</html>
+
