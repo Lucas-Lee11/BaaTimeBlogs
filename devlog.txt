@@ -110,3 +110,5 @@ EmmaB -- 2021-11-8 1:43
 
 EmmaB -- 2921-11-8 1:53
   Added team flag
+TheoF -- 2021-11-9 12:00
+  Stripped the Templates of CSS, added "edit_post.html"
