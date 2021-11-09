@@ -116,3 +116,6 @@ TheoF -- 2021-11-9 12:00
 
 AlejandroA -- 2021-11-9 12:27
   Preparation for demo, minor bug fixes
+
+IvanM -- 2021-11-9 1:27
+  Updated design document with recent updates
