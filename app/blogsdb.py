@@ -44,6 +44,9 @@ class BlogManager:
         return blog_id[0]
 
     def get_postID(self, user_id, blogname, postname):
+        """
+        helper method; returns post id; requires user id, name of blog post is in, and name of post
+        """
         blog_id = self.get_blogID(user_id, blogname)
         self.cur.execute(f"SELECT post_id FROM posts WHERE blog_id LIKE '{blog_id}%' AND post_title LIKE '{postname}%'")
         post_id = self.cur.fetchone()
@@ -58,6 +61,20 @@ class BlogManager:
         if new_name in names:
             return True
         return False
+    
+    def edit_post(self, edit_type, content, postname, user_id, blogname):
+        post_id = self.get_postID(user_id, blogname, postname)
+        self.cur.execute(f"UPDATE posts SET {edit_type}='{content}' WHERE post_id LIKE '{post_id}%'")
+
+    """
+    end helper methods
+    """
+
+    def setup(self):
+        """
+        private method; sets up blogs and posts table in database; no parameters
+        """
+        self.cur.executescript(SETUP)
 
     def check_blogname_exists(self, new_blogname, user_id):
         """
@@ -76,16 +93,6 @@ class BlogManager:
         blog_id = self.get_blogID(user_id, blogname)
         return self.check_name_exists(new_postname, user_id, "post_title", "posts", f" AND blog_id LIKE '{blog_id}'")
 
-    """
-    end helper methods
-    """
-
-    def setup(self):
-        """
-        private method; sets up blogs and posts table in database; no parameters
-        """
-        self.cur.executescript(SETUP)
-
     def add_blog_w_starter_post(self, blogname, user_id, postname, post_content):
         """
         public method; creates blog with one post; requires title of blog, user id, title of post, and content to be added into that post
@@ -93,6 +100,12 @@ class BlogManager:
         self.cur.execute("INSERT INTO blogs(blog_title, user_id) VALUES(?,?)", [blogname, user_id])
         blog_id = self.get_blogID(user_id, blogname)
         self.cur.execute("INSERT INTO posts(post_title, post_text, blog_id, user_id) VALUES(?,?,?,?)", [postname, post_content, blog_id, user_id])
+    
+    def repr_blog(self, user_id, blogname):
+        blog_id = self.get_blogID(user_id, blogname)
+        self.cur.execute(f"SELECT post_title, post_text FROM posts WHERE blog_id='{blog_id}'") #currently equal to 1, needs to change
+        postDict = {i[0]:i[1] for i in self.cur.fetchall()}
+        return postDict
 
     def add_post(self, blogname, postname, post_content, user_id):
         """
@@ -101,6 +114,18 @@ class BlogManager:
         blog_id = self.get_blogID(user_id, blogname)
         self.cur.execute("INSERT INTO posts(post_title, post_text, blog_id, user_id) VALUES(?,?,?,?)", [postname, post_content, blog_id, user_id])
         self.cur.execute(f"UPDATE blogs SET num_blogs = num_blogs + 1 WHERE blog_id LIKE '{blog_id}%'")
+
+    def edit_post_content(self, post_content, postname, user_id, blogname):
+        self.edit_post("post_text", post_content, postname, user_id, blogname)
+
+    def edit_post_title(self, new_postname, postname, user_id, blogname):
+        self.edit_post("post_title", new_postname, postname, user_id, blogname)
+
+    def get_post_content(self, postname, user_id, blogname):
+        post_id = self.get_postID(user_id, blogname, postname)
+        self.cur.execute(f"SELECT post_text FROM posts WHERE post_id LIKE '{post_id}%'")
+        content = self.cur.fetchone()
+        return content[0]
     
     def del_post(self, blogname, postname, user_id):
         """
@@ -110,28 +135,6 @@ class BlogManager:
         blog_id = self.get_blogID(user_id, blogname)
         self.cur.execute(f"DELETE FROM posts WHERE post_id LIKE '{post_id}'")
         self.cur.execute(f"UPDATE blogs SET num_blogs=num_blogs-1 WHERE blog_id LIKE '{blog_id}'") #lowers postcounter in that blog by one
-
-    def get_post_content(self, postname, user_id, blogname):
-        post_id = self.get_postID(user_id, blogname, postname)
-        self.cur.execute(f"SELECT post_text FROM posts WHERE post_id LIKE '{post_id}%'")
-        content = self.cur.fetchone()
-        return content[0]
-
-    def edit_post(self, edit_type, content, postname, user_id, blogname):
-        post_id = self.get_postID(user_id, blogname, postname)
-        self.cur.execute(f"UPDATE posts SET {edit_type}='{content}' WHERE post_id LIKE '{post_id}%'")
-
-    def edit_post_content(self, post_content, postname, user_id, blogname):
-        self.edit_post("post_text", post_content, postname, user_id, blogname)
-
-    def edit_post_title(self, new_postname, postname, user_id, blogname):
-        self.edit_post("post_title", new_postname, postname, user_id, blogname)
-
-    def repr_blog(self, user_id, blogname):
-        blog_id = self.get_blogID(user_id, blogname)
-        self.cur.execute(f"SELECT post_title, post_text FROM posts WHERE blog_id='{blog_id}'") #currently equal to 1, needs to change
-        postDict = {i[0]:i[1] for i in self.cur.fetchall()}
-        return postDict
 
     def list_blogs_by_datetime(self):
         self.cur.execute(f"SELECT * FROM blogs ORDER BY date(last_date_edited) ASC")
