@@ -56,12 +56,12 @@ def authenticate():
         return render_template("homepage.html", username=user)
     return render_template("login.html", register_message = "Username or password is wrong. Try again.")
 
-@app.route("/index") #, methods=['GET', 'POST'])
+@app.route("/index", methods=['GET', 'POST'])
 def index():
     """
     homepage creation
     """
-    return render_template('homepage.html', username="user1")
+    return render_template('homepage.html', username=session['username'])
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -82,7 +82,7 @@ def new_blog():
     """
     returns user to landing page after creating new blog post
     """
-    return render_template("homepage.html", username='user1')
+    return render_template("homepage.html", username=session['username'])
 
 @app.route("/edit_blog", methods=["GET", "POST"])
 def edit_blog():
