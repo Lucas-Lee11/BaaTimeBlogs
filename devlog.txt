@@ -126,6 +126,12 @@ TheoF -- 2021-11-9 8:16
 EmmaB, TheoF -- 2021-11-9 8:34
   Added homepage link to crt, view, and edit blog
 
+AlejandroA -- 2021-11-9 8:37
+  Began testing blogsdb methods and fixing recurring bugs
+
+AlejandroA -- 2021-11-9 9:31
+  Almost finished with testing and bug fixes, overhauling structure
+
 EmmaB -- 2021-11-9 1:34
   Added textbox to add new blog name for crt_blog
 
@@ -134,3 +140,6 @@ EmmaB -- 2021-11-9 1:40
 
 EmmaB -- 2021-11-9 1:47
   Backbone for blogsdb integration for crtblog
+
+AlejandroA -- 2021-11-9 3:43
+  Finished testing/bug fixes, added deletion functionality
