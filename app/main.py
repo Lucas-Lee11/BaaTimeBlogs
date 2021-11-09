@@ -73,6 +73,7 @@ def login():
 
 @app.route("/crt_blog", methods=["GET", "POST"])
 def crt_blog():
+    userid = auth.get_userid(session['username'])
     """
     webpage arrived at upon selecting "create blog"
     """
@@ -80,6 +81,7 @@ def crt_blog():
 
 @app.route("/new_post", methods=["GET", "POST"])
 def new_blog():
+    userid = auth.get_userid(session['username'])
     return render_template("homepage.html", username=session['username'])
     """
     returns user to landing page after creating new blog post
@@ -87,6 +89,7 @@ def new_blog():
 
 @app.route("/edit_blog", methods=["GET", "POST"])
 def edit_blog():
+    userid = auth.get_userid(session['username'])
     """
     edit post on existing blog
     """
@@ -94,13 +97,16 @@ def edit_blog():
 
 @app.route("/view_blogs", methods=["GET", "POST"])
 def view_blogs():
+    userid = auth.get_userid(session['username'])
     """
     view blogs from other users
     """
     return render_template("view_blogs.html")
 @app.route("/edit_post", methods = ["GET", "POST"])
 def edit_post():
+    userid = auth.get_userid(session['username'])
     return render_template("edit_post.html")
+
 @app.route("/out", methods=["GET","POST"])
 def logout():
     session.pop("username", default=None)
