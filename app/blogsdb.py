@@ -82,8 +82,12 @@ class BlogManager:
 
     def add_post(self, blogname, postname, post_content, user_id):
         blog_id = self.get_blogID(user_id, blogname)
-        print(blog_id)
         self.cur.execute("INSERT INTO posts(post_title, post_text, blog_id, user_id) VALUES(?,?,?,?)", [postname, post_content, blog_id, user_id])
+        self.cur.execute(f"UPDATE blogs SET num_blogs = num_blogs + 1 WHERE blog_id LIKE '{blog_id}%'")
+    
+    def del_post(self, blogname, postname, user_id):
+        post_id = self.get_postID(user_id, blogname, postname)
+        self.cur.execute(f"DELETE FROM posts WHERE post_id LIKE '{post_id}'")
 
     def get_post_content(self, postname, user_id, blogname):
         post_id = self.get_postID(user_id, blogname, postname)
@@ -108,7 +112,7 @@ class BlogManager:
         return postDict
 
     def list_blogs_by_datetime(self):
-        self.cur.execute(f"SELECT * FROM blogs ORDER BY date(last_date_edited) DESC")
+        self.cur.execute(f"SELECT * FROM blogs ORDER BY date(last_date_edited) ASC")
         return self.cur.fetchall()
 
     def close(self):
@@ -128,12 +132,15 @@ class BlogManager:
 
 blog_manager=BlogManager("discobandit.db")
 
-#WORKS blog_manager.setup()
-#WORKS blog_manager.add_blog_w_starter_post("testblog", "12345678", "testpost", "blahblahblahblah")
+#WORKS 
+#blog_manager.setup()
+#WORKS 
+#blog_manager.add_blog_w_starter_post("testblog", "12345678", "testpost", "blahblahblahblah")
 #WORKS blog_manager.add_blog_w_starter_post("blog_for_editing", "23456789", "post_to_edit", "blahdiblah")
-#WORKS blog_manager.add_post("blog_for_editing", "added_post", "it works!", "23456789")
+#WORKS manager.add_post("testblog", "added_post", "it works!", "12345678")
 #WORKS blog_manager.edit_post_title("edited_post", "post_to_edit", 23456789, "blog_for_editing")
 #WORKS blog_manager.edit_post_content("blahdoblah", "edited_post", 23456789, "blog_for_editing")
 #WORKS print(blog_manager.get_post_content("testpost", "12345678", "testblog"))
 #WORKS print(blog_manager.repr_blog("23456789", "blog_for_editing"))
-print(blog_manager.list_blogs_by_datetime())
+#WORKS print(blog_manager.list_blogs_by_datetime())
+#WORKS blog_manager.del_post("testblog", "added_post", "12345678")
