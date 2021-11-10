@@ -37,12 +37,11 @@ P00
 
    <strong>Select Blog to View</strong><br>
 <form>
-   <input type="radio" id = "blog1" name = "blog" value = "Blog1">
-          <label for="blog1"> Blog 1 </label><br>
-      <input type="radio" id = "blog2" name="blog" value = "Blog2">
-	<label for="blog2"> Blog 2 </label><br>
-      <input type="radio" id = "blog3" name="blog" value = "Blog3">
-	<label for="blog3"> Blog 3 </label><br>
+   {% for blog in bloglist %}
+       <input type="radio" id = blog name = "blog" value = blog>
+          <label for= blog> blog </label><br>
+   {% endfor %}
+     
       <input type="submit" value="Submit">
 </form>
     <div id="footer">

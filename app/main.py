@@ -109,7 +109,7 @@ def view_blogs():
     """
     view blogs from other users
     """
-    return render_template("view_blogs.html")
+    return render_template("view_blogs.html", bloglist=blog_manager.list_blogs_by_datetime())
 @app.route("/edit_post", methods = ["GET", "POST"])
 def edit_post():
     userid = auth.get_userid(session['username'])
