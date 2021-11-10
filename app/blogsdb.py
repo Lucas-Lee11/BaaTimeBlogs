@@ -1,3 +1,4 @@
+
 # Baa Time — Alejandro Alonso, Ivan Mijacika, Theodore Fahey, Emma Buller
 # SoftDev
 # P00
@@ -60,9 +61,7 @@ class BlogManager:
         if new_name in names:
             return True
         return False
-<<<<<<< HEAD
-=======
-    
+
     def edit_post(self, edit_type, content, postname, user_id, blogname):
         """
         helper method; edits an existing post based on specifications; see wrappers for specifications
@@ -71,7 +70,7 @@ class BlogManager:
         self.cur.execute(f"UPDATE posts SET {edit_type}='{content}' WHERE post_id LIKE '{post_id}%'")
         blog_id = self.get_blogID(user_id, blogname)
         self.update_datetime(blog_id)
-    
+
     def update_datetime(self, blog_id):
         """
         helper method; edits datetime when blog or post from blog is edited; requires blog id
@@ -87,11 +86,10 @@ class BlogManager:
         private method; sets up blogs and posts table in database; no parameters
         """
         self.cur.executescript(SETUP_SCRIPT)
->>>>>>> refs/remotes/origin/main
 
     def check_blogname_exists(self, new_blogname, user_id):
         """
-        checkname wrapper; 
+        checkname wrapper;
         checks if user already has a blog with the name they are trying to use;
         requires user id and title of blog user is trying to create;
         """
@@ -114,7 +112,7 @@ class BlogManager:
         blog_id = self.get_blogID(user_id, blogname)
         self.cur.execute("INSERT INTO posts(post_title, post_text, blog_id, user_id) VALUES(?,?,?,?)", [postname, post_content, blog_id, user_id])
         self.update_datetime(blog_id)
-    
+
     def edit_blog_name(self, new_blogname, old_blogname, user_id):
         """
         public method; edits blog title; requires new blog title, old blog title, and user id
@@ -123,7 +121,7 @@ class BlogManager:
         self.cur.execute(f"UPDATE blogs SET blog_title='{new_blogname}' WHERE blog_id LIKE '{blog_id}%'")
         self.update_datetime(blog_id)
 
-    
+
     def repr_blog(self, user_id, blogname):
         """
         public method; returns dictionary of post titles : post contents; requires user_id and blogname
@@ -142,22 +140,6 @@ class BlogManager:
         self.cur.execute(f"UPDATE blogs SET num_blogs = num_blogs + 1 WHERE blog_id LIKE '{blog_id}%'")
         self.update_datetime(blog_id)
 
-<<<<<<< HEAD
-    def edit_post_content(self, post_content, post_id):
-        self.edit_post(self, "post_content", post_content, post_id)
-
-    def edit_post_title(self, postname, post_id):
-        self.edit_post(self, "post_title", postname, post_id)
-
-    def repr_blog(self, blog_id):
-        self.cur.execute(f"SELECT post_text FROM posts WHERE blog_id='{blog_id}'") #currently equal to 1, needs to change
-        postList = self.cur.fetchall()
-        return postList
-
-    def list_user_blogs_by_datetime(self):
-        self.cur.execute(f"SELECT * FROM blogs ORDER BY date(last_date_edited) DESC Limit 1")
-        return self.cur.fetchall()
-=======
     def edit_post_content(self, post_content, postname, user_id, blogname):
         """
         public edit post wrapper; edits post content; requires post content, post title, user id, and blog title
@@ -178,7 +160,7 @@ class BlogManager:
         self.cur.execute(f"SELECT post_text FROM posts WHERE post_id LIKE '{post_id}%'")
         content = self.cur.fetchone()
         return content[0]
-    
+
     def del_post(self, blogname, postname, user_id):
         """
         public method; deletes post from existing blog; requires name of blog post is in, title of post, and user id
@@ -195,7 +177,6 @@ class BlogManager:
         """
         self.cur.execute(f"SELECT blog_title FROM blogs ORDER BY datetime(last_edited) DESC")
         return [i[0] for i in self.cur.fetchall()]
->>>>>>> refs/remotes/origin/main
 
     def close(self):
         """
@@ -213,10 +194,6 @@ class BlogManager:
         print("BlogDB Closed")
 
 blog_manager=BlogManager("discobandit.db")
-<<<<<<< HEAD
-blog_manager.setup()
-blog_manager.add_blog_w_starter_post("testblog", 12345678, "testpost", "blahblahblahblah")
-=======
 
 #WORKS blog_manager.setup()
 #WORKS blog_manager.add_blog_w_starter_post("testblog", "12345678", "blahpost", "blahblahblah")
@@ -231,4 +208,3 @@ blog_manager.add_blog_w_starter_post("testblog", 12345678, "testpost", "blahblah
 #WORKS print(blog_manager.check_blogname_exists("testblog", "12345678"))
 #WORKS print(blog_manager.check_postname_exists("testpost", "12345678", "testblog"))
 #WORKS blog_manager.edit_blog_name("newblogname", "testblog", "12345678")
->>>>>>> refs/remotes/origin/main
