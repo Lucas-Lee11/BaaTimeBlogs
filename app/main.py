@@ -114,6 +114,15 @@ def edit_post():
     userid = auth.get_userid(session['username'])
     return render_template("edit_post.html")
 
+@app.route("/editing", methods=["GET","POST"])
+def edit():
+    return render_template("edit.html")
+
+@app.route("/edited", methods=["GET","POST"])
+def edited():
+    userid = auth.get_userid(session['username'])
+    return render_template("homepage.html", username = session['username'])
+
 @app.route("/out", methods=["GET","POST"])
 def logout():
     session.pop("username", default=None)

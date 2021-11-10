@@ -1,4 +1,4 @@
-<!-- 
+<!--
 Baa Time — Alejandro Alonso, Ivan Mijacika, Theodore Fahey, Emma Buller
 SoftDev
 P00
@@ -20,7 +20,7 @@ P00
               right:0;
               height:30px;
             }
-            
+
         </style>
     </head>
         <body>
@@ -30,26 +30,17 @@ P00
                 <a href="{{ url_for('view_blogs')}}" class="navbutton"><strong>View Blogs</strong></a>
                 <a href="{{ url_for('index')}}" class="navbutton"><strong>Homepage</strong></a>
           </div>
-            <form action = "/edit_blog">
-                <label for="editname"> Change Post Title </label> <br>
-                <input type= "text" id="editname" name="editname"><br>
-                <label for= "editpost"> Edit Your Post </label> <br>
-                <textarea id= "editpost" name = "editpost"> </textarea> <br> <br>
+            <form action = "/editing">
                 <strong> Which Post </strong><br>
 	        <input type="radio" id = "post1" name = "post" value = "Post1">
           <label for="post"> Post 1 </label><br>
       <input type="radio" id = "post2" name="post" value = "Post2">
 	<label for="post2"> Post2 </label><br>
- <input type="submit" value ="post"> <br>
-                        <a href= "/" > Submit </a> <!-- currently routes to homepage, will select post to edit in future-->
-                    </div>
-                  </div>
-  
-              </div>
+ <input type="submit" value ="submit"> <br>
+ </form>
           <div id="footer">
                   <p>Baa Time | Alejandro Alonso, Emma Buller, Theo Fahey, Ivan Mijacika | <a href='https://github.com/AAWorks/BaaTimeBlogs'>Github Repo</a> | Copyrights &copy; 2020 All Rights Reserved | Last Update: Nov 2021</p>
           </div>
-                
+
    </body>
 </html>
-
