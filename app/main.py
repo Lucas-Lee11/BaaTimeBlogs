@@ -118,16 +118,17 @@ def edit_blog():
 def edit_post():
     chosen_blogname = "newblogname"
     userid = auth.get_userid(session['username'])
-    postDict = blog_manager.repr_blog(userid, chosen_blogname)
-    postlist=list(postDict.keys())
-    chosen_postname = request.form.getlist("posts")
-    print(chosen_postname)
+    #postDict = blog_manager.repr_blog(userid, chosen_blogname)
+    #postlist=list(postDict.keys())
+    postlist = ["post1", "post2"]
+    #chosen_postname = request.form["posts"]
+    #print(chosen_postname)
     return render_template("edit_post.html", postlist=postlist)
 
 @app.route("/editing", methods=["GET","POST"])
 def edit():
     user_id = auth.get_userid(session['username'])
-    new_blogname, new_postname, content = request.form["blogname"], request.form["postname"], request.form["body"]
+    new_postname, content = request.form["postname"], request.form["body"]
     postname = new_postname if new_postname != None else NEED_OLD_POST_NAME
     if new_postname != None:
         blog_manager.edit_post_title(new_postname, NEED_OLD_POSTNAME, user_id, NEED_BLOGNAME)

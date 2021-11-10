@@ -193,8 +193,6 @@ class BlogManager:
         self.close()
         print("BlogDB Closed")
 
-blog_manager=BlogManager("discobandit.db")
-
 #WORKS blog_manager.setup()
 #WORKS blog_manager.add_blog_w_starter_post("testblog", "12345678", "blahpost", "blahblahblah")
 #WORKS blog_manager.add_blog_w_starter_post("blog_for_editing", "23456789", "post_to_edit", "blahdiblah")
