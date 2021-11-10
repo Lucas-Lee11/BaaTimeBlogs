@@ -32,10 +32,10 @@ P00
           </div>
             <form action = "/editing">
                 <strong> Which Post </strong><br>
-	        <input type="radio" id = "post1" name = "post" value = "Post1">
-          <label for="post"> Post 1 </label><br>
-      <input type="radio" id = "post2" name="post" value = "Post2">
-	<label for="post2"> Post2 </label><br>
+            {%for elem in postlist %} 
+                <input type="radio" id={{elem}} name="posts" value={{elem}}>
+                <label for={{elem}}> {{elem}} </label> <br>
+            {%endfor%}
  <input type="submit" value ="submit"> <br>
  </form>
           <div id="footer">

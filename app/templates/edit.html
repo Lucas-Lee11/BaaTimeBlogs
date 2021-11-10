@@ -35,11 +35,11 @@ P00
     <a href="{{ url_for('index')}}" class="navbutton"><strong>Homepage</strong></a>
 </div>
   <form action ="/edited">
-    <label for="blogname"> Blog Name</label><br>
-    <input type="text" id="blogname" name="blogname"> <br>
-    <label for="postname"> Post Name </label><br>
+    <h4> {{postname}} </h4>
+    <text> {{post_content}} </text> <br>
+    <label for="postname"> Rename Post </label><br>
     <input type="text" id="postname" name="postname"> <br>
-    <label for ="body"> Post Text </label> <br>
+    <label for ="body"> Replace Post Text </label> <br>
     <textarea id="body" name="body" rows="20" cols="80"> </textarea> <br>
       <input type="submit" value ="post">
     </form>
