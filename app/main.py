@@ -88,11 +88,18 @@ def new_blog():
     newblog = request.form.get('newblog')
     if(newblog is not None):
         blogname = request.form['blogname']
-        blog_manager.add_blog_w_starter_post(blogname, userid, postname, posttext)
+        if(blog_manager.check_blogname_exists(blogname,userid)):
+            bloglist = blog_manager.list_blogs_from_user(userid)
+            return render_template("crt_blog.html", error="Blogname already exists. Input a new one", blogs=bloglist)
+        else:
+            blog_manager.add_blog_w_starter_post(blogname, userid, postname, posttext)
     else:
         blog = request.form['blog']
-        blog_manager.add_post(blog,postname,posttext,userid)
-        print(blog_manager.get_post_content(postname,userid,blog))
+        if(blog_manager.check_postname_exists(postname,userid,blog)):
+            bloglist = blog_manager.list_blogs_from_user(userid)
+            return render_template("crt_blog.html", error="Postname already exists. Input a new one", blogs=bloglist)
+        else:
+            blog_manager.add_post(blog,postname,posttext,userid)
     return render_template("homepage.html", username=session['username'])
     """
     returns user to landing page after creating new blog post
