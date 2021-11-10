@@ -11,15 +11,14 @@ CREATE TABLE IF NOT EXISTS blogs (
     user_id             TEXT,
     num_blogs           INTEGER DEFAULT 1,
     blog_id             TEXT PRIMARY KEY DEFAULT (hex(randomblob(8))),
-    last_date_edited    DATE DEFAULT CURRENT_TIMESTAMP
+    last_edited    DATE DEFAULT CURRENT_TIMESTAMP
 );
 CREATE TABLE IF NOT EXISTS posts (
     post_title          TEXT,
     post_text           TEXT,
     blog_id             TEXT,
     user_id             TEXT,
-    post_id             TEXT PRIMARY KEY DEFAULT (hex(randomblob(8))),
-    last_date_edited    DATE DEFAULT CURRENT_TIMESTAMP
+    post_id             TEXT PRIMARY KEY DEFAULT (hex(randomblob(8)))
 );
 """
 
@@ -32,7 +31,7 @@ class BlogManager:
         self.cur = self.con.cursor()
 
     """
-    begin helper methods
+    begin private helper methods
     """
 
     def get_blogID(self, user_id, blogname):
@@ -68,9 +67,17 @@ class BlogManager:
         """
         post_id = self.get_postID(user_id, blogname, postname)
         self.cur.execute(f"UPDATE posts SET {edit_type}='{content}' WHERE post_id LIKE '{post_id}%'")
+        blog_id = self.get_blogID(user_id, blogname)
+        self.update_datetime(blog_id)
+    
+    def update_datetime(self, blog_id):
+        """
+        helper method; edits datetime when blog or post from blog is edited; requires blog id
+        """
+        self.cur.execute(f"UPDATE blogs SET last_edited=datetime('now') WHERE blog_id LIKE '{blog_id}%'")
 
     """
-    end helper methods
+    end private helper methods
     """
 
     def setup(self):
@@ -103,6 +110,16 @@ class BlogManager:
         self.cur.execute("INSERT INTO blogs(blog_title, user_id) VALUES(?,?)", [blogname, user_id])
         blog_id = self.get_blogID(user_id, blogname)
         self.cur.execute("INSERT INTO posts(post_title, post_text, blog_id, user_id) VALUES(?,?,?,?)", [postname, post_content, blog_id, user_id])
+        self.update_datetime(blog_id)
+    
+    def edit_blog_name(self, new_blogname, old_blogname, user_id):
+        """
+        public method; edits blog title; requires new blog title, old blog title, and user id
+        """
+        blog_id = self.get_blogID(user_id, old_blogname)
+        self.cur.execute(f"UPDATE blogs SET blog_title='{new_blogname}' WHERE blog_id LIKE '{blog_id}%'")
+        self.update_datetime(blog_id)
+
     
     def repr_blog(self, user_id, blogname):
         """
@@ -120,6 +137,7 @@ class BlogManager:
         blog_id = self.get_blogID(user_id, blogname)
         self.cur.execute("INSERT INTO posts(post_title, post_text, blog_id, user_id) VALUES(?,?,?,?)", [postname, post_content, blog_id, user_id])
         self.cur.execute(f"UPDATE blogs SET num_blogs = num_blogs + 1 WHERE blog_id LIKE '{blog_id}%'")
+        self.update_datetime(blog_id)
 
     def edit_post_content(self, post_content, postname, user_id, blogname):
         """
@@ -150,12 +168,13 @@ class BlogManager:
         blog_id = self.get_blogID(user_id, blogname)
         self.cur.execute(f"DELETE FROM posts WHERE post_id LIKE '{post_id}'")
         self.cur.execute(f"UPDATE blogs SET num_blogs=num_blogs-1 WHERE blog_id LIKE '{blog_id}'") #lowers postcounter in that blog by one
+        self.update_datetime(blog_id)
 
     def list_blogs_by_datetime(self):
         """
         public method; lists blogs based on when they were last edited; no parameters
         """
-        self.cur.execute(f"SELECT blog_title FROM blogs ORDER BY datetime(last_date_edited) DESC")
+        self.cur.execute(f"SELECT blog_title FROM blogs ORDER BY datetime(last_edited) DESC")
         return [i[0] for i in self.cur.fetchall()]
 
     def close(self):
