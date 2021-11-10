@@ -5,7 +5,7 @@
 
 import sqlite3
 
-SETUP = """
+SETUP_SCRIPT = """
 CREATE TABLE IF NOT EXISTS blogs (
     blog_title          TEXT,
     user_id             TEXT,
@@ -63,6 +63,9 @@ class BlogManager:
         return False
     
     def edit_post(self, edit_type, content, postname, user_id, blogname):
+        """
+        helper method; edits an existing post based on specifications; see wrappers for specifications
+        """
         post_id = self.get_postID(user_id, blogname, postname)
         self.cur.execute(f"UPDATE posts SET {edit_type}='{content}' WHERE post_id LIKE '{post_id}%'")
 
@@ -74,7 +77,7 @@ class BlogManager:
         """
         private method; sets up blogs and posts table in database; no parameters
         """
-        self.cur.executescript(SETUP)
+        self.cur.executescript(SETUP_SCRIPT)
 
     def check_blogname_exists(self, new_blogname, user_id):
         """
@@ -102,6 +105,9 @@ class BlogManager:
         self.cur.execute("INSERT INTO posts(post_title, post_text, blog_id, user_id) VALUES(?,?,?,?)", [postname, post_content, blog_id, user_id])
     
     def repr_blog(self, user_id, blogname):
+        """
+        public method; returns dictionary of post titles : post contents; requires user_id and blogname
+        """
         blog_id = self.get_blogID(user_id, blogname)
         self.cur.execute(f"SELECT post_title, post_text FROM posts WHERE blog_id='{blog_id}'") #currently equal to 1, needs to change
         postDict = {i[0]:i[1] for i in self.cur.fetchall()}
@@ -116,12 +122,21 @@ class BlogManager:
         self.cur.execute(f"UPDATE blogs SET num_blogs = num_blogs + 1 WHERE blog_id LIKE '{blog_id}%'")
 
     def edit_post_content(self, post_content, postname, user_id, blogname):
+        """
+        public edit post wrapper; edits post content; requires post content, post title, user id, and blog title
+        """
         self.edit_post("post_text", post_content, postname, user_id, blogname)
 
     def edit_post_title(self, new_postname, postname, user_id, blogname):
+        """
+        public edit post wrapper; edits post title; requries old post title, new post title, user id , and blog title
+        """
         self.edit_post("post_title", new_postname, postname, user_id, blogname)
 
     def get_post_content(self, postname, user_id, blogname):
+        """
+        public method; return content in specified post; requires post title, user id, and blog title
+        """
         post_id = self.get_postID(user_id, blogname, postname)
         self.cur.execute(f"SELECT post_text FROM posts WHERE post_id LIKE '{post_id}%'")
         content = self.cur.fetchone()
@@ -137,12 +152,15 @@ class BlogManager:
         self.cur.execute(f"UPDATE blogs SET num_blogs=num_blogs-1 WHERE blog_id LIKE '{blog_id}'") #lowers postcounter in that blog by one
 
     def list_blogs_by_datetime(self):
-        self.cur.execute(f"SELECT * FROM blogs ORDER BY date(last_date_edited) ASC")
-        return self.cur.fetchall()
+        """
+        public method; lists blogs based on when they were last edited; no parameters
+        """
+        self.cur.execute(f"SELECT blog_title FROM blogs ORDER BY datetime(last_date_edited) DESC")
+        return [i[0] for i in self.cur.fetchall()]
 
     def close(self):
         """
-        commit changes and close cursor.
+        private method; commit changes and close cursor; no parameters
         """
         print("Closing BlogDB... ")
         self.con.commit()
@@ -150,17 +168,15 @@ class BlogManager:
 
     def __del__(self):
         """
-        make sure db is closed
+        private method; close db; no parameters
         """
         self.close()
         print("BlogDB Closed")
 
 blog_manager=BlogManager("discobandit.db")
 
-#WORKS 
-#blog_manager.setup()
-#WORKS 
-# blog_manager.add_blog_w_starter_post("blahblog", "12345678", "blahpost", "blahblahblah")
+#WORKS blog_manager.setup()
+#WORKS blog_manager.add_blog_w_starter_post("testblog", "12345678", "blahpost", "blahblahblah")
 #WORKS blog_manager.add_blog_w_starter_post("blog_for_editing", "23456789", "post_to_edit", "blahdiblah")
 #WORKS blog_manager.add_post("testblog", "testpost", "it works!", "12345678")
 #WORKS blog_manager.edit_post_title("edited_post", "post_to_edit", 23456789, "blog_for_editing")
