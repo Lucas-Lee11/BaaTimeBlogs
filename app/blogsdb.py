@@ -41,6 +41,9 @@ class BlogManager:
         """
         self.cur.execute(f"SELECT blog_id FROM blogs WHERE blog_title LIKE '{blogname}%' AND user_id LIKE '{user_id}%'")
         blog_id = self.cur.fetchone()
+        #DIAG*** print(user_id)
+        #DIAG*** print(blogname)
+        #DIAG*** print(blog_id)
         return blog_id[0]
 
     def get_postID(self, user_id, blogname, postname):

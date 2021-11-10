@@ -139,14 +139,14 @@ def edit_post():
 
 @app.route("/editing", methods=["GET","POST"])
 def edit():
-    old_postname, old_post_content, blogname = "old", "oldpostcontent", "newblogname"
+    old_postname, old_post_content, blogname = "oldpostname", "oldpostcontent", "newblogname"
     chosen_postname = request.form.getlist("posts")
     print(chosen_postname)
     return render_template("edit.html", postname=old_postname, post_content=old_post_content)
 
 @app.route("/edited", methods=["GET","POST"])
 def edited():
-    old_postname, old_post_content, blogname = "timepostcheck", "blahblahblah", "newblogname"
+    old_postname, old_post_content, blogname = "oldpostname", "oldpostcontent", "newblogname"
     userid = auth.get_userid(session['username'])
     new_postname, content = request.form["postname"], request.form["body"]
     postname = new_postname if new_postname != None else old_postname
