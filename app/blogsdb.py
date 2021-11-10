@@ -28,7 +28,7 @@ class BlogManager:
         """
         connects to database (db), if none exists, creates one
         """
-        self.con = sqlite3.connect("blogs.db") # change to 'sqlite:///your_filename.db'
+        self.con = sqlite3.connect(db_file,check_same_thread=False) # change to 'sqlite:///your_filename.db'
         self.cur = self.con.cursor()
 
     """
