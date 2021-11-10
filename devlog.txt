@@ -144,5 +144,8 @@ EmmaB -- 2021-11-9 1:47
 AlejandroA -- 2021-11-9 3:43
   Finished testing/bug fixes, added deletion functionality
 
+AlejandroA -- 2021-11-9 8:17
+  Restructuring of blogsdb.py, and added datetime functionality
+
 EmmaB -- 2021-11-9 10:33
   Edited pathway for editing blogs
