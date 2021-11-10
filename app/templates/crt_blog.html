@@ -37,7 +37,10 @@ P00
   <form action ="/new_post">
     <label for="blog">Which Blog?</label> <br>
     <select name="blog" id="blog">
-      <option value="Blog1"> Blog1 </option> <!--will be replaced with blogs stored in database -->
+      {% for b in blogs %}
+      <option value="{{b}}"> {{b}} </option>
+      <br>
+      {% endfor %}
       <option value=newblog> Create New Blog </option>
       </select><br>
     <label for="blogname"> Blog Name (for New Blogs) </label><br>

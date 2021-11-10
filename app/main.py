@@ -74,10 +74,11 @@ def login():
 @app.route("/crt_blog", methods=["GET", "POST"])
 def crt_blog():
     userid = auth.get_userid(session['username'])
+    bloglist = blog_manager.list_blogs_from_user(userid)
     """
     webpage arrived at upon selecting "create blog"
     """
-    return render_template('crt_blog.html')
+    return render_template('crt_blog.html', blogs=bloglist)
 
 @app.route("/new_post", methods=["GET", "POST"])
 def new_blog():
@@ -90,6 +91,7 @@ def new_blog():
         blog_manager.add_blog_w_starter_post(blogname, userid, postname, posttext)
     else:
         blog_manager.add_post(blog,postname,posttext,userid)
+        print(blog_manager.get_post_content(postname,userid,blog))
     return render_template("homepage.html", username=session['username'])
     """
     returns user to landing page after creating new blog post

@@ -178,6 +178,14 @@ class BlogManager:
         self.cur.execute(f"SELECT blog_title, user_id FROM blogs ORDER BY datetime(last_edited) DESC")
         return [[i[0],i[1]] for i in self.cur.fetchall()]
 
+    def list_blogs_from_user(self,userid):
+        """
+        public method; lists blogs from user
+        """
+        self.cur.execute(f"SELECT blog_title FROM blogs WHERE user_id like '{userid}'")
+        return [i[0] for i in self.cur.fetchall()];
+
+
     def close(self):
         """
         private method; commit changes and close cursor; no parameters
