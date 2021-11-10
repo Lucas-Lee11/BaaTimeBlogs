@@ -83,13 +83,14 @@ def crt_blog():
 @app.route("/new_post", methods=["GET", "POST"])
 def new_blog():
     userid = auth.get_userid(session['username'])
-    blog = request.args['blog']
-    postname = request.args['postname']
-    posttext = request.args['body']
-    if(blog=="newblog"):
-        blogname = request.args['blogname']
+    postname = request.form['postname']
+    posttext = request.form['body']
+    newblog = request.form.get('newblog')
+    if(newblog is not None):
+        blogname = request.form['blogname']
         blog_manager.add_blog_w_starter_post(blogname, userid, postname, posttext)
     else:
+        blog = request.form['blog']
         blog_manager.add_post(blog,postname,posttext,userid)
         print(blog_manager.get_post_content(postname,userid,blog))
     return render_template("homepage.html", username=session['username'])

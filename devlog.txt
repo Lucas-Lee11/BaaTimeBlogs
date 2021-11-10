@@ -152,3 +152,9 @@ EmmaB -- 2021-11-9 10:33
 
 EmmaB -- 2021-11-10 8:32
   Added crtblog-blogdb integration and fixed multithread issue
+
+EmmaB -- 2021-11-10 1:30
+  Added list_blogs_from_user in blogsdb and added crtblog-blogdb integration
+
+EmmaB -- 2021-11-10 1:54
+  Changed way to make newblog
