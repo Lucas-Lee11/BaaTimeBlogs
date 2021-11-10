@@ -175,8 +175,8 @@ class BlogManager:
         """
         public method; lists blogs based on when they were last edited; no parameters
         """
-        self.cur.execute(f"SELECT blog_title FROM blogs ORDER BY datetime(last_edited) DESC")
-        return [i[0] for i in self.cur.fetchall()]
+        self.cur.execute(f"SELECT blog_title, user_id FROM blogs ORDER BY datetime(last_edited) DESC")
+        return [[i[0],i[1]] for i in self.cur.fetchall()]
 
     def close(self):
         """
