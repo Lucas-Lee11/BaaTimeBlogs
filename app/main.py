@@ -4,7 +4,7 @@
 # 2021-10-27
 
 import sqlite3
-import auth #, blogsdb
+import auth, blogsdb
 from os import urandom
 from flask import render_template, redirect, request, url_for, session, Flask
 
@@ -14,7 +14,8 @@ from flask import render_template, redirect, request, url_for, session, Flask
 app = Flask(__name__)
 app.secret_key = urandom(32)
 
-#blog_manager = blogsdb.BlogManager("blogs.db")
+blog_manager = blogsdb.BlogManager("blogs.db")
+blog_manager.setup()
 #TESTING AUTH
 auth.database()
 # auth.crt_user("c","jafe")
@@ -72,20 +73,30 @@ def login():
 
 @app.route("/crt_blog", methods=["GET", "POST"])
 def crt_blog():
+    userid = auth.get_userid(session['username'])
     """
     webpage arrived at upon selecting "create blog"
     """
     return render_template('crt_blog.html')
 
-@app.route("/new_blog", methods=["GET", "POST"])
+@app.route("/new_post", methods=["GET", "POST"])
 def new_blog():
+    userid = auth.get_userid(session['username'])
+    blog = request.args['blog']
+    postname = request.args['postname']
+    posttext = request.args['body']
+    if(blog=="newblog"):
+        blogname = request.args['blogname']
+        # print(request.args['blogname'])
+    # print(blog+' '+postname+' '+posttext)
+    return render_template("homepage.html", username=session['username'])
     """
     returns user to landing page after creating new blog post
     """
-    return render_template("homepage.html", username=session['username'])
 
 @app.route("/edit_blog", methods=["GET", "POST"])
 def edit_blog():
+    userid = auth.get_userid(session['username'])
     """
     edit post on existing blog
     """
@@ -93,13 +104,25 @@ def edit_blog():
 
 @app.route("/view_blogs", methods=["GET", "POST"])
 def view_blogs():
+    userid = auth.get_userid(session['username'])
     """
     view blogs from other users
     """
     return render_template("view_blogs.html")
 @app.route("/edit_post", methods = ["GET", "POST"])
 def edit_post():
+    userid = auth.get_userid(session['username'])
     return render_template("edit_post.html")
+
+@app.route("/editing", methods=["GET","POST"])
+def edit():
+    return render_template("edit.html")
+
+@app.route("/edited", methods=["GET","POST"])
+def edited():
+    userid = auth.get_userid(session['username'])
+    return render_template("homepage.html", username = session['username'])
+
 @app.route("/out", methods=["GET","POST"])
 def logout():
     session.pop("username", default=None)
