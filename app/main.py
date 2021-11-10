@@ -87,8 +87,9 @@ def new_blog():
     posttext = request.args['body']
     if(blog=="newblog"):
         blogname = request.args['blogname']
-        # print(request.args['blogname'])
-    # print(blog+' '+postname+' '+posttext)
+        blog_manager.add_blog_w_starter_post(blogname, userid, postname, posttext)
+    else:
+        blog_manager.add_post(blog,postname,posttext,uesrid)
     return render_template("homepage.html", username=session['username'])
     """
     returns user to landing page after creating new blog post
@@ -108,7 +109,7 @@ def view_blogs():
     """
     view blogs from other users
     """
-    return render_template("view_blogs.html")
+    return render_template("view_blogs.html", bloglist=blog_manager.list_blogs_by_datetime())
 @app.route("/edit_post", methods = ["GET", "POST"])
 def edit_post():
     userid = auth.get_userid(session['username'])

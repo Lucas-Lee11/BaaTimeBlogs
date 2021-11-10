@@ -1,3 +1,4 @@
+
 # Baa Time — Alejandro Alonso, Ivan Mijacika, Theodore Fahey, Emma Buller
 # SoftDev
 # P00
@@ -27,7 +28,7 @@ class BlogManager:
         """
         connects to database (db), if none exists, creates one
         """
-        self.con = sqlite3.connect("blogs.db") # change to 'sqlite:///your_filename.db'
+        self.con = sqlite3.connect(db_file,check_same_thread=False) # change to 'sqlite:///your_filename.db'
         self.cur = self.con.cursor()
 
     """
@@ -60,7 +61,7 @@ class BlogManager:
         if new_name in names:
             return True
         return False
-    
+
     def edit_post(self, edit_type, content, postname, user_id, blogname):
         """
         helper method; edits an existing post based on specifications; see wrappers for specifications
@@ -69,7 +70,7 @@ class BlogManager:
         self.cur.execute(f"UPDATE posts SET {edit_type}='{content}' WHERE post_id LIKE '{post_id}%'")
         blog_id = self.get_blogID(user_id, blogname)
         self.update_datetime(blog_id)
-    
+
     def update_datetime(self, blog_id):
         """
         helper method; edits datetime when blog or post from blog is edited; requires blog id
@@ -88,7 +89,7 @@ class BlogManager:
 
     def check_blogname_exists(self, new_blogname, user_id):
         """
-        checkname wrapper; 
+        checkname wrapper;
         checks if user already has a blog with the name they are trying to use;
         requires user id and title of blog user is trying to create;
         """
@@ -111,7 +112,7 @@ class BlogManager:
         blog_id = self.get_blogID(user_id, blogname)
         self.cur.execute("INSERT INTO posts(post_title, post_text, blog_id, user_id) VALUES(?,?,?,?)", [postname, post_content, blog_id, user_id])
         self.update_datetime(blog_id)
-    
+
     def edit_blog_name(self, new_blogname, old_blogname, user_id):
         """
         public method; edits blog title; requires new blog title, old blog title, and user id
@@ -120,7 +121,7 @@ class BlogManager:
         self.cur.execute(f"UPDATE blogs SET blog_title='{new_blogname}' WHERE blog_id LIKE '{blog_id}%'")
         self.update_datetime(blog_id)
 
-    
+
     def repr_blog(self, user_id, blogname):
         """
         public method; returns dictionary of post titles : post contents; requires user_id and blogname
@@ -159,7 +160,7 @@ class BlogManager:
         self.cur.execute(f"SELECT post_text FROM posts WHERE post_id LIKE '{post_id}%'")
         content = self.cur.fetchone()
         return content[0]
-    
+
     def del_post(self, blogname, postname, user_id):
         """
         public method; deletes post from existing blog; requires name of blog post is in, title of post, and user id
