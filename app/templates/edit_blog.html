@@ -38,7 +38,7 @@ P00
 <br>
 
    <strong>Select Blog to Edit </strong><br>
-   <form action = "/edit_post">
+   <form action = "/edit_post" method="POST">
     {%for blog in bloglist %} 
         <input type="radio" id={{blog}} name="blogs" value={{blog}}>
           <label for={{blog}}> {{blog}} </label><br>

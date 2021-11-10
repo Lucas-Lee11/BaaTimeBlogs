@@ -34,7 +34,7 @@ P00
     <a href="{{ url_for('view_blogs')}}" class="navbutton"><strong>View Blogs</strong></a>
     <a href="{{ url_for('index')}}" class="navbutton"><strong>Homepage</strong></a>
 </div>
-  <form action ="/edited">
+  <form action ="/edited" method="POST">
     <h4> {{postname}} </h4>
     <text> {{post_content}} </text> <br>
     <label for="postname"> Rename Post </label><br>

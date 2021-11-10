@@ -183,7 +183,7 @@ class BlogManager:
         public method; lists blogs from user
         """
         self.cur.execute(f"SELECT blog_title FROM blogs WHERE user_id like '{userid}'")
-        return [i[0] for i in self.cur.fetchall()];
+        return [i[0] for i in self.cur.fetchall()]
 
 
     def close(self):
