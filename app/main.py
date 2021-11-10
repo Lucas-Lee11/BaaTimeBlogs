@@ -89,19 +89,11 @@ def new_blog():
         blogname = request.args['blogname']
         blog_manager.add_blog_w_starter_post(blogname, userid, postname, posttext)
     else:
-        blog_manager.add_post(blog,postname,posttext,uesrid)
+        blog_manager.add_post(blog,postname,posttext,userid)
     return render_template("homepage.html", username=session['username'])
     """
     returns user to landing page after creating new blog post
     """
-
-@app.route("/edit_blog", methods=["GET", "POST"])
-def edit_blog():
-    userid = auth.get_userid(session['username'])
-    """
-    edit post on existing blog
-    """
-    return render_template("edit_blog.html")
 
 @app.route("/view_blogs", methods=["GET", "POST"])
 def view_blogs():
@@ -110,14 +102,38 @@ def view_blogs():
     view blogs from other users
     """
     return render_template("view_blogs.html", bloglist=blog_manager.list_blogs_by_datetime())
+
+@app.route("/edit_blog", methods=["GET", "POST"])
+def edit_blog():
+    userid = auth.get_userid(session['username'])
+    """
+    edit post on existing blog
+    """
+    bloglist = ["blog1", "blog2"]
+    chosen_blogname = request.form.getlist("blogs")
+    print(chosen_blogname)
+    return render_template("edit_blog.html", bloglist=bloglist)
+
 @app.route("/edit_post", methods = ["GET", "POST"])
 def edit_post():
+    chosen_blogname = "newblogname"
     userid = auth.get_userid(session['username'])
-    return render_template("edit_post.html")
+    postDict = blog_manager.repr_blog(userid, chosen_blogname)
+    postlist=list(postDict.keys())
+    chosen_postname = request.form.getlist("posts")
+    print(chosen_postname)
+    return render_template("edit_post.html", postlist=postlist)
 
 @app.route("/editing", methods=["GET","POST"])
 def edit():
-    return render_template("edit.html")
+    user_id = auth.get_userid(session['username'])
+    new_blogname, new_postname, content = request.form["blogname"], request.form["postname"], request.form["body"]
+    postname = new_postname if new_postname != None else NEED_OLD_POST_NAME
+    if new_postname != None:
+        blog_manager.edit_post_title(new_postname, NEED_OLD_POSTNAME, user_id, NEED_BLOGNAME)
+    if content != None:
+        blog_manager.edit_post_content(content, postname, user_id, NEED_BLOGNAME)
+    return render_template("edit.html", postname=OLD_POST_NAME, post_content=OLD_POST_CONTENT)
 
 @app.route("/edited", methods=["GET","POST"])
 def edited():
