@@ -35,15 +35,18 @@ P00
     </div>
 <br>
 
-   <strong>Select Blog to View</strong><br>
-<form action = "/view_posts", method = "POST", method = "GET">
-   {% for blog in bloglist %}
-       <input type="radio" id = {{blog}} name = blog value = "{{blog[0]}}">
-          <label for= {{blog}}> {{ blog[0]}} - {{blog[2]}} </label><br>
+   <strong>Select Post to View</strong><br>
+<form action = "/show_text", method = "POST", method = "GET">
+   {% for post in postlist %}
+       <input type="radio" id = {{post}} name = post value = "{{postlist[post]}}" >
+          <label for= {{post[0]}}> {{post}} </label><br>
    {% endfor %}
 
       <input type="submit" value="Submit">
 </form>
+<div>
+  {{text}}
+  </div>
     <div id="footer">
       <p>Baa Time | Alejandro Alonso, Emma Buller, Theo Fahey, Ivan Mijacika | <a href='https://github.com/AAWorks/BaaTimeBlogs'>Github Repo</a> | Copyrights &copy; 2020 All Rights Reserved | Last Update: Nov 2021</p>
     </div>

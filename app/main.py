@@ -111,14 +111,58 @@ def new_blog():
     """
     returns user to landing page after creating new blog post
     """
-
+global correctBlog
 @app.route("/view_blogs", methods=["GET", "POST"])
 def view_blogs():
+    global correctBlog
+    correctBlog = None
     userid = auth.get_userid(session['username'])
     """
     view blogs from other users
     """
-    return render_template("view_blogs.html", bloglist=blog_manager.list_blogs_by_datetime())
+    db = sqlite3.connect("users.db")
+    cursor = db.cursor()
+    list=blog_manager.list_blogs_by_datetime()
+    for i in list:
+        id = i[1];
+        cursor.execute(f"SELECT username FROM users WHERE user_id like '{id}'")
+        user = cursor.fetchone()
+        i.append(user[0])
+
+
+
+
+
+
+    return render_template("view_blogs.html", bloglist=list)
+@app.route("/view_posts",methods=["GET", "POST"])
+def view_posts():
+    global correctBlog
+    if (correctBlog is None):
+        correctBlog = (request.form.getlist("blog"))
+    db = sqlite3.connect("blogs.db")
+    cursor = db.cursor()
+    cursor.execute(f"SELECT user_id FROM blogs WHERE blog_title like '{correctBlog[0]}'")
+    user = cursor.fetchone()
+    #userid = auth.get_userid(session['username'])
+    new_list = blog_manager.repr_blog(user[0],correctBlog[0])
+    return render_template("view_posts.html", postlist = new_list)
+
+
+
+@app.route("/show_text",methods = ["GET", "POST"])
+def show_text():
+    global correctBlog
+    userid = auth.get_userid(session['username'])
+    correctPost = request.form.getlist("post")
+    db = sqlite3.connect("blogs.db")
+    cursor = db.cursor()
+    cursor.execute(f"SELECT user_id FROM blogs WHERE blog_title like '{correctBlog[0]}'")
+    user = cursor.fetchone()
+
+    new_list = blog_manager.repr_blog(user[0],correctBlog[0])
+
+    return render_template("view_posts.html", postlist = new_list, text = correctPost[0])
 
 @app.route("/edit_blog", methods=["GET", "POST"])
 def edit_blog():
@@ -152,7 +196,7 @@ def edit():
 def edited():
     userid = auth.get_userid(session['username'])
     new_postname, content = request.form["postname"], request.form["body"]
-    postname = new_postname if new_postname != None else chosen_post 
+    postname = new_postname if new_postname != None else chosen_post
     if new_postname != None:
         blog_manager.edit_post_title(new_postname, chosen_post, userid, chosen_blogname)
     if content != None:
