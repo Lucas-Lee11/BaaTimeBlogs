@@ -138,6 +138,7 @@ def view_blogs():
 @app.route("/view_posts",methods=["GET", "POST"])
 def view_posts():
     global correctBlog
+    correctBlog = None
     if (correctBlog is None):
         correctBlog = (request.form.getlist("blog"))
     db = sqlite3.connect("blogs.db")
