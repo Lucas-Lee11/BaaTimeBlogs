@@ -176,9 +176,12 @@ AlejandroA -- 2021-11-10 6:43
 
 EmmaB -- 2021-11-11 9:04
   crtblog now checks for empty inputs.
- 
+
 AlejandroA -- 2021-11-12 1:52
   Edit blogs essentially done
 
 AlejandroA -- 2021-11-12 2:18
   Polished edit blogs - cleaner gui and bug fixes (i.e. removed whitespace issue)
+
+TheoF -- 2021-11-11 1:52
+  View_Blogs and View_Posts integration with dbs done. 
