@@ -175,7 +175,7 @@ def edit_blog():
     return render_template("edit_blog.html", bloglist=bloglist)
 
 #needed for edit funcs
-global chosen_blogname, chosen_post
+global chosen_blogname, chosen_post, old_post_content
 
 @app.route("/edit_post", methods = ["GET", "POST"])
 def edit_post():
@@ -187,21 +187,22 @@ def edit_post():
 
 @app.route("/editing", methods=["GET","POST"])
 def edit():
-    global chosen_post
+    global chosen_post, old_post_content
     userid = auth.get_userid(session['username'])
     chosen_post = request.form.getlist("posts")[0]
     old_post_content = blog_manager.get_post_content(chosen_post, userid, chosen_blogname)
-    return render_template("edit.html", postname=chosen_post, post_content=old_post_content)
+    return render_template("edit.html", error="", postname=chosen_post, post_content=old_post_content)
 
 @app.route("/edited", methods=["GET","POST"])
 def edited():
     userid = auth.get_userid(session['username'])
     new_postname, content = request.form["postname"], request.form["body"]
-    postname = new_postname if new_postname != None else chosen_post
-    if new_postname != None:
+    postname = new_postname if new_postname != None else chosen_post 
+    if new_postname != chosen_post and not blog_manager.check_postname_exists(new_postname, userid, chosen_blogname):
         blog_manager.edit_post_title(new_postname, chosen_post, userid, chosen_blogname)
-    if content != None:
-        blog_manager.edit_post_content(content, postname, userid, chosen_blogname)
+    elif new_postname != chosen_post:
+        return render_template("edit.html", error="Post title already exists in this blog.", postname=chosen_post, post_content=old_post_content)
+    blog_manager.edit_post_content(content, postname, userid, chosen_blogname)
     return render_template("homepage.html", username = session['username'])
 
 @app.route("/out", methods=["GET","POST"])
