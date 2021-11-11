@@ -33,8 +33,8 @@ P00
             <form action = "/editing" method="POST">
                 <strong> Which Post </strong><br>
             {%for elem in postlist %} 
-                <input type="radio" id={{elem}} name="posts" value={{elem}}>
-                <label for={{elem}}> {{elem}} </label> <br>
+                <input type="radio" id="{{elem}}" name="posts" value="{{elem}}">
+                <label for="{{elem}}"> {{elem}} </label> <br>
             {%endfor%}
  <input type="submit" value ="submit"> <br>
  </form>
