@@ -161,3 +161,6 @@ EmmaB -- 2021-11-10 1:54
 
 EmmaB -- 2021-11-10 2:14
   crtblog checks for repeated blog and post names
+
+EmmaB -- 2021-11-10 9:04
+  crtblog now checks for empty inputs.

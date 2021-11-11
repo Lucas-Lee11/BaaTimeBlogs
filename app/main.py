@@ -83,13 +83,20 @@ def crt_blog():
 @app.route("/new_post", methods=["GET", "POST"])
 def new_blog():
     userid = auth.get_userid(session['username'])
+    bloglist = blog_manager.list_blogs_from_user(userid)
     postname = request.form['postname']
+    if(postname==''):
+        return render_template("crt_blog.html", error="Postname can't be empty", blogs=bloglist)
     posttext = request.form['body']
+    print(posttext + "nnnn")
+    if(posttext==' '):
+        return render_template("crt_blog.html", error="Post text can't be empty", blogs=bloglist)
     newblog = request.form.get('newblog')
     if(newblog is not None):
         blogname = request.form['blogname']
-        if(blog_manager.check_blogname_exists(blogname,userid)):
-            bloglist = blog_manager.list_blogs_from_user(userid)
+        if(blogname==''):
+            return render_template("crt_blog.html", error="Blogname can't be empty", blogs=bloglist)
+        elif(blog_manager.check_blogname_exists(blogname,userid)):
             return render_template("crt_blog.html", error="Blogname already exists. Input a new one", blogs=bloglist)
         else:
             blog_manager.add_blog_w_starter_post(blogname, userid, postname, posttext)
