@@ -32,19 +32,20 @@ P00
           <a href="{{ url_for('edit_blog')}}" class="navbutton"><strong>Edit Blogs</strong></a>
           <a href="{{ url_for('view_blogs')}}" class="navbutton"><strong>View Blogs</strong></a>
           <a href="{{ url_for('index')}}" class="navbutton"><strong>Homepage</strong></a>
-          
-          
+
+
     </div>
 <br>
 
    <strong>Select Blog to Edit </strong><br>
    <form action = "/edit_post" method="POST">
-    {%for blog in bloglist %} 
+    {%for blog in bloglist %}
         <input type="radio" id="{{blog}}" name="blogs" value="{{blog}}">
           <label for="{{blog}}"> {{blog}} </label><br>
     {%endfor%}
     <input type="submit" value ="submit"> <br>
     </form>
+    <h3>{{error}}</h3>
     <div id="footer">
       <p>Baa Time | Alejandro Alonso, Emma Buller, Theo Fahey, Ivan Mijacika | <a href='https://github.com/AAWorks/BaaTimeBlogs'>Github Repo</a> | Copyrights &copy; 2020 All Rights Reserved | Last Update: Nov 2021</p>
     </div>

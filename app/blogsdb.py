@@ -116,6 +116,7 @@ class BlogManager:
         blog_id = self.get_blogID(user_id, blogname)
         self.cur.execute("INSERT INTO posts(post_title, post_text, blog_id, user_id) VALUES(?,?,?,?)", [postname, post_content, blog_id, user_id])
         self.update_datetime(blog_id)
+        self.con.commit()
 
     def edit_blog_name(self, new_blogname, old_blogname, user_id):
         """
@@ -124,6 +125,7 @@ class BlogManager:
         blog_id = self.get_blogID(user_id, old_blogname)
         self.cur.execute(f"UPDATE blogs SET blog_title='{new_blogname}' WHERE blog_id LIKE '{blog_id}%'")
         self.update_datetime(blog_id)
+        self.con.commit()
 
 
     def repr_blog(self, user_id, blogname):
@@ -143,6 +145,7 @@ class BlogManager:
         self.cur.execute("INSERT INTO posts(post_title, post_text, blog_id, user_id) VALUES(?,?,?,?)", [postname, post_content, blog_id, user_id])
         self.cur.execute(f"UPDATE blogs SET num_blogs = num_blogs + 1 WHERE blog_id LIKE '{blog_id}%'")
         self.update_datetime(blog_id)
+        self.con.commit()
 
     def edit_post_content(self, post_content, postname, user_id, blogname):
         """
@@ -174,6 +177,7 @@ class BlogManager:
         self.cur.execute(f"DELETE FROM posts WHERE post_id LIKE '{post_id}'")
         self.cur.execute(f"UPDATE blogs SET num_blogs=num_blogs-1 WHERE blog_id LIKE '{blog_id}'") #lowers postcounter in that blog by one
         self.update_datetime(blog_id)
+        self.con.commit()
 
     def list_blogs_by_datetime(self):
         """

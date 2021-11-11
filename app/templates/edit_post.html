@@ -32,12 +32,13 @@ P00
           </div>
             <form action = "/editing" method="POST">
                 <strong> Which Post </strong><br>
-            {%for elem in postlist %} 
+            {%for elem in postlist %}
                 <input type="radio" id="{{elem}}" name="posts" value="{{elem}}">
                 <label for="{{elem}}"> {{elem}} </label> <br>
             {%endfor%}
  <input type="submit" value ="submit"> <br>
  </form>
+ <h3>{{error}}</h3>
           <div id="footer">
                   <p>Baa Time | Alejandro Alonso, Emma Buller, Theo Fahey, Ivan Mijacika | <a href='https://github.com/AAWorks/BaaTimeBlogs'>Github Repo</a> | Copyrights &copy; 2020 All Rights Reserved | Last Update: Nov 2021</p>
           </div>

@@ -101,7 +101,9 @@ def new_blog():
         else:
             blog_manager.add_blog_w_starter_post(blogname, userid, postname, posttext)
     else:
-        blog = request.form['blog']
+        blog = request.form.get('blog')
+        if(blog is None):
+            return render_template("crt_blog.html", error="You have no blogs to add on. Create a new one", blogs=bloglist)
         if(blog_manager.check_postname_exists(postname,userid,blog)):
             bloglist = blog_manager.list_blogs_from_user(userid)
             return render_template("crt_blog.html", error="Postname already exists. Input a new one", blogs=bloglist)
@@ -137,6 +139,16 @@ def view_blogs():
     return render_template("view_blogs.html", bloglist=list)
 @app.route("/view_posts",methods=["GET", "POST"])
 def view_posts():
+    if(len(request.form.getlist("blog"))==0):
+        db = sqlite3.connect("users.db")
+        cursor = db.cursor()
+        list=blog_manager.list_blogs_by_datetime()
+        for i in list:
+            id = i[1];
+            cursor.execute(f"SELECT username FROM users WHERE user_id like '{id}'")
+            user = cursor.fetchone()
+            i.append(user[0])
+        return render_template("view_blogs.html", bloglist=list, error="Please select a blog to view.")
     global correctBlog
     correctBlog = None
     if (correctBlog is None):
@@ -162,8 +174,10 @@ def show_text():
     user = cursor.fetchone()
 
     new_list = blog_manager.repr_blog(user[0],correctBlog[0])
-
-    return render_template("view_posts.html", postlist = new_list, text = correctPost[0])
+    if(len(correctPost)==0):
+        return render_template("view_posts.html", postlist = new_list, text = "Please select a post to view.")
+    else:
+        return render_template("view_posts.html", postlist = new_list, text = correctPost[0])
 
 @app.route("/edit_blog", methods=["GET", "POST"])
 def edit_blog():
@@ -181,23 +195,31 @@ global chosen_blogname, chosen_post, old_post_content
 def edit_post():
     global chosen_blogname
     userid = auth.get_userid(session['username'])
-    chosen_blogname = request.form.getlist("blogs")[0]
-    postlist = blog_manager.list_posts_from_blog(userid, chosen_blogname)
-    return render_template("edit_post.html", postlist=postlist)
+    if(len(request.form.getlist("blogs"))==0):
+        bloglist = blog_manager.list_blogs_from_user(userid)
+        return render_template("edit_blog.html", bloglist=bloglist, error="Please select a blog to edit")
+    else:
+        chosen_blogname = request.form.getlist("blogs")[0]
+        postlist = blog_manager.list_posts_from_blog(userid, chosen_blogname)
+        return render_template("edit_post.html", postlist=postlist)
 
 @app.route("/editing", methods=["GET","POST"])
 def edit():
     global chosen_post, old_post_content
     userid = auth.get_userid(session['username'])
-    chosen_post = request.form.getlist("posts")[0]
-    old_post_content = blog_manager.get_post_content(chosen_post, userid, chosen_blogname)
-    return render_template("edit.html", error="", postname=chosen_post, post_content=old_post_content)
+    if(len(request.form.getlist("posts"))==0):
+        postlist = blog_manager.list_posts_from_blog(userid, chosen_blogname)
+        return render_template("edit_post.html", postlist=postlist, error="Please select a post to edit")
+    else:
+        chosen_post = request.form.getlist("posts")[0]
+        old_post_content = blog_manager.get_post_content(chosen_post, userid, chosen_blogname)
+        return render_template("edit.html", error="", postname=chosen_post, post_content=old_post_content)
 
 @app.route("/edited", methods=["GET","POST"])
 def edited():
     userid = auth.get_userid(session['username'])
     new_postname, content = request.form["postname"], request.form["body"]
-    postname = new_postname if new_postname != None else chosen_post 
+    postname = new_postname if new_postname != None else chosen_post
     if new_postname != chosen_post and not blog_manager.check_postname_exists(new_postname, userid, chosen_blogname):
         blog_manager.edit_post_title(new_postname, chosen_post, userid, chosen_blogname)
     elif new_postname != chosen_post:
