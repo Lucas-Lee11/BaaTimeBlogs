@@ -184,4 +184,7 @@ AlejandroA -- 2021-11-12 2:18
   Polished edit blogs - cleaner gui and bug fixes (i.e. removed whitespace issue)
 
 TheoF -- 2021-11-11 1:52
-  View_Blogs and View_Posts integration with dbs done. 
+  View_Blogs and View_Posts integration with dbs almost done. 
+
+TheoF -- 2021-11-11 2L06
+  Fixed a bug in View_Blogs. View_Blogs and View_posts done. 
