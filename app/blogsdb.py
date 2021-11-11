@@ -39,11 +39,12 @@ class BlogManager:
         """
         helper method; returns blog id; requires user id and name of blog
         """
+        #print("DIAG***"+user_id+"***")
+        #print(blogname)
+        #print("DIAG***"+blogname+"***")
+        #DIAG*** print(blog_id)
         self.cur.execute(f"SELECT blog_id FROM blogs WHERE blog_title LIKE '{blogname}%' AND user_id LIKE '{user_id}%'")
         blog_id = self.cur.fetchone()
-        #DIAG*** print(user_id)
-        #DIAG*** print(blogname)
-        #DIAG*** print(blog_id)
         return blog_id[0]
 
     def get_postID(self, user_id, blogname, postname):
@@ -185,9 +186,16 @@ class BlogManager:
         """
         public method; lists blogs from user
         """
-        self.cur.execute(f"SELECT blog_title FROM blogs WHERE user_id like '{userid}'")
+        self.cur.execute(f"SELECT blog_title FROM blogs WHERE user_id LIKE '{userid}'")
         return [i[0] for i in self.cur.fetchall()]
 
+    def list_posts_from_blog(self, user_id, blogname):
+        """
+        public method; lists posts from a blog
+        """
+        blog_id = self.get_blogID(user_id, blogname)
+        self.cur.execute(f"SELECT post_title FROM posts WHERE blog_id LIKE '{blog_id}%'")
+        return [i[0] for i in self.cur.fetchall()]
 
     def close(self):
         """

@@ -126,41 +126,37 @@ def edit_blog():
     """
     edit post on existing blog
     """
-    bloglist = ["blog1", "blog2"]
-    #bloglist = blog_manager.get_user_blogs(userid, chosen_blogname)
-    #print(chosen_blogname)
+    bloglist = blog_manager.list_blogs_from_user(userid)
     return render_template("edit_blog.html", bloglist=bloglist)
+
+#needed for edit funcs
+global chosen_blogname, chosen_post
 
 @app.route("/edit_post", methods = ["GET", "POST"])
 def edit_post():
-    chosen_blogname = "newblogname"
+    global chosen_blogname
     userid = auth.get_userid(session['username'])
-    chosen_blogname = request.form.getlist("blogs")
-    print(chosen_blogname)
-    #postDict = blog_manager.repr_blog(userid, chosen_blogname)
-    #postlist=list(postDict.keys())
-    postlist = ["post1", "post2"]
-    #chosen_postname = request.form["posts"]
-    #print(chosen_postname)
+    chosen_blogname = request.form.getlist("blogs")[0]
+    postlist = blog_manager.list_posts_from_blog(userid, chosen_blogname)
     return render_template("edit_post.html", postlist=postlist)
 
 @app.route("/editing", methods=["GET","POST"])
 def edit():
-    old_postname, old_post_content, blogname = "oldpostname", "oldpostcontent", "newblogname"
-    chosen_postname = request.form.getlist("posts")
-    print(chosen_postname)
-    return render_template("edit.html", postname=old_postname, post_content=old_post_content)
+    global chosen_post
+    userid = auth.get_userid(session['username'])
+    chosen_post = request.form.getlist("posts")[0]
+    old_post_content = blog_manager.get_post_content(chosen_post, userid, chosen_blogname)
+    return render_template("edit.html", postname=chosen_post, post_content=old_post_content)
 
 @app.route("/edited", methods=["GET","POST"])
 def edited():
-    old_postname, old_post_content, blogname = "oldpostname", "oldpostcontent", "newblogname"
     userid = auth.get_userid(session['username'])
     new_postname, content = request.form["postname"], request.form["body"]
-    postname = new_postname if new_postname != None else old_postname
+    postname = new_postname if new_postname != None else chosen_post 
     if new_postname != None:
-        blog_manager.edit_post_title(new_postname, old_postname, userid, blogname)
+        blog_manager.edit_post_title(new_postname, chosen_post, userid, chosen_blogname)
     if content != None:
-        blog_manager.edit_post_content(content, postname, userid, blogname)
+        blog_manager.edit_post_content(content, postname, userid, chosen_blogname)
     return render_template("homepage.html", username = session['username'])
 
 @app.route("/out", methods=["GET","POST"])
