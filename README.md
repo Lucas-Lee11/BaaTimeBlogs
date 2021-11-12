@@ -11,7 +11,7 @@ Theodore Fahey (Dev)
 "Baatime Blogs", as dubbed by our wonderful team of devos, provides users with a platform on which they can share anything from big ideas to passing whims. Users can manipulate blogs in a variety of ways, from adding, removing, and editing posts and blogs, to looking through blogs by other users.
 
 ## Installation
-The following instructions assume that you have Python 3.9 and pip already installed.
+The following instructions assume that you have [Python 3.9](https://www.python.org/downloads/ Download Python) and pip(https://pip.pypa.io/en/stable/installation/ Install pip) already installed.
 
 1. Clone this repository.
 
