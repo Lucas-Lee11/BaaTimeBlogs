@@ -178,6 +178,15 @@ class BlogManager:
         self.cur.execute(f"UPDATE blogs SET num_blogs=num_blogs-1 WHERE blog_id LIKE '{blog_id}'") #lowers postcounter in that blog by one
         self.update_datetime(blog_id)
         self.con.commit()
+    
+    def del_blog(self, blogname, user_id):
+        """
+        public method; deletes post from existing blog; requires name of blog and user_id
+        """
+        blog_id = self.get_blogID(user_id, blogname)
+        self.cur.execute(f"DELETE FROM blogs WHERE blog_id LIKE '{blog_id}'")
+        self.cur.execute(f"DELETE FROM posts WHERE blog_id LIKE '{blog_id}'")
+        self.con.commit()
 
     def list_blogs_by_datetime(self):
         """

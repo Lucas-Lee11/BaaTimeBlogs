@@ -6,8 +6,8 @@ db = sqlite3.connect("blogs.db")
 
 cur = db.cursor() #facilitate db ops
 
-#blog_manager=blogsdb.BlogManager("blogs.db")
-#blog_manager.add_blog_w_starter_post("newblogname", "84E2D0F4CAC38AAA", "oldpostname", "oldpostcontent")
+blog_manager=blogsdb.BlogManager("blogs.db")
+blog_manager.del_blog("newblogname", "12345678")
 
 def tester():
     """
