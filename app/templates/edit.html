@@ -9,30 +9,14 @@ P00
 <html>
   <head>
     <title>Edit Post</title>
-    <style>
-
-#footer {
-  background-color: rgba(211, 211, 211);
-  text-align: center;
-  padding: 10px;
-  font-size: 10px;
-  color: rgb(0, 0, 0);
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  height:30px;
-}
-
-  </style>
     </head>
 
 <body>
-  <div class="navbuttons">
-    <a href="{{ url_for('crt_blog') }}" class="navbutton"><strong>Create Blogs</strong></a>
-    <a href="{{ url_for('edit_blog')}}" class="navbutton"><strong>Edit Blogs</strong></a>
-    <a href="{{ url_for('view_blogs')}}" class="navbutton"><strong>View Blogs</strong></a>
-    <a href="{{ url_for('index')}}" class="navbutton"><strong>Homepage</strong></a>
+  <div>
+    <a href="{{ url_for('crt_blog') }}"><strong>Create Blogs/Posts</strong></a>
+    <a href="{{ url_for('edit_blog')}}"><strong>Edit Your Blogs/Posts</strong></a>
+    <a href="{{ url_for('view_blogs')}}"><strong>View Blogs</strong></a>
+    <a href="{{ url_for('index')}}"><strong>Homepage</strong></a>
 </div>
   <h2>Edit Post</h2><br>
   <h3>{{error}}</h3>
@@ -43,10 +27,12 @@ P00
     <textarea id="postname" name="postname" rows="1" cols="20">{{postname}}</textarea><br>
     <label for ="body"> Replace Post Text </label> <br>
     <textarea id="body" name="body" rows="20" cols="80">{{post_content}}</textarea> <br>
-      <input type="submit" value ="post">
+      <input type="submit" value ="Update">
     </form>
-  <div id="footer">
-    <p>Baa Time | Alejandro Alonso, Emma Buller, Theo Fahey, Ivan Mijacika | <a href='https://github.com/AAWorks/BaaTimeBlogs'>Github Repo</a> | Copyrights &copy; 2020 All Rights Reserved | Last Update: Nov 2021</p>
-  </div>
+    <form action ="/deletepost" method="POST">
+      <br><strong> Delete Post </strong><br>
+      <body>(Deleting a post cannot be undone, proceed with caution)</body><br><br>
+      <input type="submit" value ="DELETE"> <br>
+    </form>
   </body>
 </html>

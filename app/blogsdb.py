@@ -10,7 +10,7 @@ SETUP_SCRIPT = """
 CREATE TABLE IF NOT EXISTS blogs (
     blog_title          TEXT,
     user_id             TEXT,
-    num_blogs           INTEGER DEFAULT 1,
+    num_posts           INTEGER DEFAULT 1,
     blog_id             TEXT PRIMARY KEY DEFAULT (hex(randomblob(8))),
     last_edited    DATE DEFAULT CURRENT_TIMESTAMP
 );
@@ -143,7 +143,7 @@ class BlogManager:
         """
         blog_id = self.get_blogID(user_id, blogname)
         self.cur.execute("INSERT INTO posts(post_title, post_text, blog_id, user_id) VALUES(?,?,?,?)", [postname, post_content, blog_id, user_id])
-        self.cur.execute(f"UPDATE blogs SET num_blogs = num_blogs + 1 WHERE blog_id LIKE '{blog_id}%'")
+        self.cur.execute(f"UPDATE blogs SET num_posts = num_posts + 1 WHERE blog_id LIKE '{blog_id}%'")
         self.update_datetime(blog_id)
         self.con.commit()
 
@@ -175,7 +175,7 @@ class BlogManager:
         post_id = self.get_postID(user_id, blogname, postname)
         blog_id = self.get_blogID(user_id, blogname)
         self.cur.execute(f"DELETE FROM posts WHERE post_id LIKE '{post_id}'")
-        self.cur.execute(f"UPDATE blogs SET num_blogs=num_blogs-1 WHERE blog_id LIKE '{blog_id}'") #lowers postcounter in that blog by one
+        self.cur.execute(f"UPDATE blogs SET num_posts=num_posts-1 WHERE blog_id LIKE '{blog_id}'") #lowers postcounter in that blog by one
         self.update_datetime(blog_id)
         self.con.commit()
     
@@ -209,6 +209,14 @@ class BlogManager:
         blog_id = self.get_blogID(user_id, blogname)
         self.cur.execute(f"SELECT post_title FROM posts WHERE blog_id LIKE '{blog_id}%'")
         return [i[0] for i in self.cur.fetchall()]
+    
+    def get_count_posts(self, user_id, blogname):
+        """
+        public method; returns number of posts in a blog
+        """
+        blog_id = self.get_blogID(user_id, blogname)
+        self.cur.execute(f"SELECT num_posts FROM blogs WHERE blog_id LIKE '{blog_id}'")
+        return self.cur.fetchall()[0]
 
     def close(self):
         """

@@ -86,27 +86,27 @@ def new_blog():
     bloglist = blog_manager.list_blogs_from_user(userid)
     postname = request.form['postname']
     if(postname==''):
-        return render_template("crt_blog.html", error="Postname can't be empty", blogs=bloglist)
+        return render_template("crt_blog.html", error="Postname can't be empty.", blogs=bloglist)
     posttext = request.form['body']
     print(posttext + "nnnn")
     if(posttext==' '):
-        return render_template("crt_blog.html", error="Post text can't be empty", blogs=bloglist)
+        return render_template("crt_blog.html", error="Post text can't be empty.", blogs=bloglist)
     newblog = request.form.get('newblog')
     if(newblog is not None):
         blogname = request.form['blogname']
         if(blogname==''):
-            return render_template("crt_blog.html", error="Blogname can't be empty", blogs=bloglist)
+            return render_template("crt_blog.html", error="Blogname can't be empty.", blogs=bloglist)
         elif(blog_manager.check_blogname_exists(blogname,userid)):
-            return render_template("crt_blog.html", error="Blogname already exists. Input a new one", blogs=bloglist)
+            return render_template("crt_blog.html", error="Blogname already exists. Input a new one.", blogs=bloglist)
         else:
             blog_manager.add_blog_w_starter_post(blogname, userid, postname, posttext)
     else:
         blog = request.form.get('blog')
         if(blog is None):
-            return render_template("crt_blog.html", error="You have no blogs to add on. Create a new one", blogs=bloglist)
+            return render_template("crt_blog.html", error="You have no blogs to add on. Create a new one.", blogs=bloglist)
         if(blog_manager.check_postname_exists(postname,userid,blog)):
             bloglist = blog_manager.list_blogs_from_user(userid)
-            return render_template("crt_blog.html", error="Postname already exists. Input a new one", blogs=bloglist)
+            return render_template("crt_blog.html", error="Postname already exists. Input a new one.", blogs=bloglist)
         else:
             blog_manager.add_post(blog,postname,posttext,userid)
     return render_template("homepage.html", username=session['username'])
@@ -145,7 +145,7 @@ def view_posts():
             cursor.execute(f"SELECT username FROM users WHERE user_id like '{id}'")
             user = cursor.fetchone()
             i.append(user[0])
-        return render_template("view_blogs.html", bloglist=list, error="Please select a blog to view.")
+        return render_template("view_blogs.html", bloglist=list, error="Select a blog to view or create one if you have none.")
     global correctBlog
     correctBlog = None
     if (correctBlog is None):
@@ -176,7 +176,7 @@ def edit_post():
     userid = auth.get_userid(session['username'])
     if(len(request.form.getlist("blogs"))==0):
         bloglist = blog_manager.list_blogs_from_user(userid)
-        return render_template("edit_blog.html", bloglist=bloglist, error="Please select a blog to edit")
+        return render_template("edit_blog.html", bloglist=bloglist, error="Select a blog to edit or create a new one if you have none.")
     else:
         chosen_blogname = request.form.getlist("blogs")[0]
         postlist = blog_manager.list_posts_from_blog(userid, chosen_blogname)
@@ -188,7 +188,7 @@ def edit():
     userid = auth.get_userid(session['username'])
     if(len(request.form.getlist("posts"))==0):
         postlist = blog_manager.list_posts_from_blog(userid, chosen_blogname)
-        return render_template("edit_post.html", postlist=postlist, error="Please select a post to edit")
+        return render_template("edit_post.html", postlist=postlist, error="Select a post to edit or create a new one if you have none.")
     else:
         chosen_post = request.form.getlist("posts")[0]
         old_post_content = blog_manager.get_post_content(chosen_post, userid, chosen_blogname)
@@ -196,21 +196,34 @@ def edit():
 
 @app.route("/edited", methods=["GET","POST"])
 def edited():
+    global chosen_post, chosen_blogname
     userid = auth.get_userid(session['username'])
     new_blogname, new_postname, content = request.form["blogname"], request.form["postname"], request.form["body"]
     postname, blogname = chosen_post, chosen_blogname
     if new_postname != chosen_post and not blog_manager.check_postname_exists(new_postname, userid, chosen_blogname):
         blog_manager.edit_post_title(new_postname, chosen_post, userid, chosen_blogname)
-        postname=new_postname
+        chosen_post=new_postname
     elif new_postname != chosen_post:
         return render_template("edit.html", error="Post title already exists in this blog.", blogname=new_blogname, postname=chosen_post, post_content=old_post_content)
     if new_blogname != chosen_blogname and not blog_manager.check_blogname_exists(new_blogname, userid):
         blog_manager.edit_blog_name(new_blogname, chosen_blogname, userid)
-        blogname=new_blogname
+        chosen_blogname=new_blogname
     elif new_blogname != chosen_blogname:
         return render_template("edit.html", error="Blog title already exists in this blog.", blogname=new_blogname, postname=chosen_post, post_content=old_post_content)
-    blog_manager.edit_post_content(content, postname, userid, blogname)
+    blog_manager.edit_post_content(content, chosen_post, userid, chosen_blogname)
     return render_template("homepage.html", username = session['username'])
+
+@app.route("/deletepost", methods=["GET", "POST"])
+def deletepost():
+    userid=auth.get_userid(session['username'])
+    blog_manager.del_post(chosen_blogname, chosen_post, userid)
+    return render_template("homepage.html", username=session['username'])
+
+@app.route("/deleteblog", methods=["GET", "POST"])
+def deleteblog():
+    userid=auth.get_userid(session['username'])
+    blog_manager.del_blog(chosen_blogname, userid)
+    return render_template("homepage.html", username=session['username'])
 
 @app.route("/out", methods=["GET","POST"])
 def logout():

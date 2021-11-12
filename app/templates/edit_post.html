@@ -7,42 +7,28 @@ P00
 <html>
     <head>
         <title> Edit Blog </title>
-        <style>
-            #footer {
-              background-color: rgba(211, 211, 211);
-              text-align: center;
-              padding: 10px;
-              font-size: 10px;
-              color: rgb(0, 0, 0);
-              position:fixed;
-              bottom:0;
-              left:0;
-              right:0;
-              height:30px;
-            }
-
-        </style>
     </head>
         <body>
-            <div class="navbuttons">
-                <a href="{{ url_for('crt_blog') }}" class="navbutton"><strong>Create Blogs</strong></a>
-                <a href="{{ url_for('edit_blog')}}" class="navbutton"><strong>Edit Blogs</strong></a>
-                <a href="{{ url_for('view_blogs')}}" class="navbutton"><strong>View Blogs</strong></a>
-                <a href="{{ url_for('index')}}" class="navbutton"><strong>Homepage</strong></a>
-          </div>
+            <div>
+                <a href="{{ url_for('crt_blog') }}"><strong>Create Blogs/Posts</strong></a>
+                <a href="{{ url_for('edit_blog')}}"><strong>Edit Your Blogs/Posts</strong></a>
+                <a href="{{ url_for('view_blogs')}}"><strong>View Blogs</strong></a>
+                <a href="{{ url_for('index')}}"><strong>Homepage</strong></a>
+            </div>
             <form action = "/editing" method="POST">
-                <br><strong> Choose Post to Edit: </strong><br>
+                <br><strong> Choose Post to Edit/Delete: </strong><br>
                 <body>(To rename a blog, select any post)</body><br><br>
             {%for elem in postlist %}
                 <input type="radio" id="{{elem}}" name="posts" value="{{elem}}">
                 <label for="{{elem}}"> {{elem}} </label> <br>
             {%endfor%}
- <br><input type="submit" value ="submit"> <br>
+ <br><input type="submit" value ="Select"> <br>
  </form>
- <h3>{{error}}</h3>
-          <div id="footer">
-                  <p>Baa Time | Alejandro Alonso, Emma Buller, Theo Fahey, Ivan Mijacika | <a href='https://github.com/AAWorks/BaaTimeBlogs'>Github Repo</a> | Copyrights &copy; 2020 All Rights Reserved | Last Update: Nov 2021</p>
-          </div>
-
+ <form action ="/deleteblog" method="POST">
+    <br><strong> Delete Blog </strong><br>
+    <body>(Deleting a blog deletes all of its posts, and cannot be undone, proceed with caution)</body><br><br>
+    <input type="submit" value ="DELETE"> <br>
+  </form>
+  <br><h3>{{error}}</h3>
    </body>
 </html>
