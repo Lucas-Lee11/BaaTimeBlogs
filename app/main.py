@@ -113,6 +113,7 @@ def new_blog():
     """
     returns user to landing page after creating new blog post
     """
+
 global correctBlog
 @app.route("/view_blogs", methods=["GET", "POST"])
 def view_blogs():
@@ -131,12 +132,8 @@ def view_blogs():
         user = cursor.fetchone()
         i.append(user[0])
 
-
-
-
-
-
     return render_template("view_blogs.html", bloglist=list)
+
 @app.route("/view_posts",methods=["GET", "POST"])
 def view_posts():
     if(len(request.form.getlist("blog"))==0):
@@ -158,26 +155,8 @@ def view_posts():
     cursor.execute(f"SELECT user_id FROM blogs WHERE blog_title like '{correctBlog[0]}'")
     user = cursor.fetchone()
     #userid = auth.get_userid(session['username'])
-    new_list = blog_manager.repr_blog(user[0],correctBlog[0])
-    return render_template("view_posts.html", postlist = new_list)
-
-
-
-@app.route("/show_text",methods = ["GET", "POST"])
-def show_text():
-    global correctBlog
-    userid = auth.get_userid(session['username'])
-    correctPost = request.form.getlist("post")
-    db = sqlite3.connect("blogs.db")
-    cursor = db.cursor()
-    cursor.execute(f"SELECT user_id FROM blogs WHERE blog_title like '{correctBlog[0]}'")
-    user = cursor.fetchone()
-
-    new_list = blog_manager.repr_blog(user[0],correctBlog[0])
-    if(len(correctPost)==0):
-        return render_template("view_posts.html", postlist = new_list, text = "Please select a post to view.")
-    else:
-        return render_template("view_posts.html", postlist = new_list, text = correctPost[0])
+    new_dict = blog_manager.repr_blog(user[0],correctBlog[0])
+    return render_template("view_posts.html", postDict = new_dict, blogname = correctBlog[0])
 
 @app.route("/edit_blog", methods=["GET", "POST"])
 def edit_blog():

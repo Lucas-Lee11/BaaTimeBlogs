@@ -34,19 +34,11 @@ P00
       <a href="{{ url_for('index')}}" class="navbutton"><strong>Homepage</strong></a>
     </div>
 <br>
-
-   <strong>Select Post to View</strong><br>
-<form action = "/show_text", method = "POST", method = "GET">
-   {% for post in postlist %}
-       <input type="radio" id = {{post}} name = post value = "{{postlist[post]}}" >
-          <label for= {{post[0]}}> {{post}} </label><br>
+   <h2><strong>Posts from {{blogname}}</strong></h2>
+   {% for postname in postDict.keys() %}
+      <h3>{{postname}}</h3>
+      <body>{{postDict[postname]}}</body><br>
    {% endfor %}
-
-      <input type="submit" value="Submit">
-</form>
-<div>
-  {{text}}
-  </div>
     <div id="footer">
       <p>Baa Time | Alejandro Alonso, Emma Buller, Theo Fahey, Ivan Mijacika | <a href='https://github.com/AAWorks/BaaTimeBlogs'>Github Repo</a> | Copyrights &copy; 2020 All Rights Reserved | Last Update: Nov 2021</p>
     </div>
