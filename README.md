@@ -8,7 +8,7 @@ Ivan Mijacika (Dev)<br>
 Theodore Fahey (Dev)
 
 ## App Description
-Something
+"Baatime Blogs", as dubbed by our wonderful team of devos, provides users with a platform on which they can share anything from big ideas to passing whims. Users can manipulate blogs in a variety of ways, from adding, removing, and editing posts and blogs, to looking through blogs by other users.
 
 ## Installation
 The following instructions assume that you have Python 3.9 and pip already installed.
@@ -17,7 +17,7 @@ The following instructions assume that you have Python 3.9 and pip already insta
 
 `$ git clone https://github.com/AAWorks/baatimeblogs.git`
 
-2. Create a new virtual environment. (Why?)
+2. Create a new virtual environment.
 
 `$ python3 -m venv env_name`
 `$ source env/bin/activate`
@@ -28,7 +28,7 @@ The following instructions assume that you have Python 3.9 and pip already insta
 
 4. Run the app.
 
-`$ (env_name) python3 circlestories.py`
+`$ (env_name) python3 main.py`
 
 
 ## Acknowledgment
