@@ -17,7 +17,7 @@ The following instructions assume that you have Python 3.9 and pip already insta
 
 `$ git clone https://github.com/AAWorks/baatimeblogs.git`
 
-2. Create a new virtual environment. Learn more about those [here!](https://docs.python.org/3/tutorial/venv.html "Virtual Environments in Python")
+2. Create a new virtual environment. Learn more about those [here](https://docs.python.org/3/tutorial/venv.html "Virtual Environments in Python").
 
 `$ python3 -m venv your_env_name`<br>
 `$ source your_env_name/bin/activate`
