@@ -6,9 +6,6 @@ db = sqlite3.connect("blogs.db")
 
 cur = db.cursor() #facilitate db ops
 
-blog_manager=blogsdb.BlogManager("blogs.db")
-blog_manager.del_blog("newblogname", "12345678")
-
 def tester():
     """
     add a blog and return blog id

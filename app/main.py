@@ -192,18 +192,24 @@ def edit():
     else:
         chosen_post = request.form.getlist("posts")[0]
         old_post_content = blog_manager.get_post_content(chosen_post, userid, chosen_blogname)
-        return render_template("edit.html", error="", postname=chosen_post, post_content=old_post_content)
+        return render_template("edit.html", blogname=chosen_blogname, error="", postname=chosen_post, post_content=old_post_content)
 
 @app.route("/edited", methods=["GET","POST"])
 def edited():
     userid = auth.get_userid(session['username'])
-    new_postname, content = request.form["postname"], request.form["body"]
-    postname = new_postname if new_postname != None else chosen_post
+    new_blogname, new_postname, content = request.form["blogname"], request.form["postname"], request.form["body"]
+    postname, blogname = chosen_post, chosen_blogname
     if new_postname != chosen_post and not blog_manager.check_postname_exists(new_postname, userid, chosen_blogname):
         blog_manager.edit_post_title(new_postname, chosen_post, userid, chosen_blogname)
+        postname=new_postname
     elif new_postname != chosen_post:
-        return render_template("edit.html", error="Post title already exists in this blog.", postname=chosen_post, post_content=old_post_content)
-    blog_manager.edit_post_content(content, postname, userid, chosen_blogname)
+        return render_template("edit.html", error="Post title already exists in this blog.", blogname=new_blogname, postname=chosen_post, post_content=old_post_content)
+    if new_blogname != chosen_blogname and not blog_manager.check_blogname_exists(new_blogname, userid):
+        blog_manager.edit_blog_name(new_blogname, chosen_blogname, userid)
+        blogname=new_blogname
+    elif new_blogname != chosen_blogname:
+        return render_template("edit.html", error="Blog title already exists in this blog.", blogname=new_blogname, postname=chosen_post, post_content=old_post_content)
+    blog_manager.edit_post_content(content, postname, userid, blogname)
     return render_template("homepage.html", username = session['username'])
 
 @app.route("/out", methods=["GET","POST"])

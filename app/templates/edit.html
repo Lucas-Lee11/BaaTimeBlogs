@@ -37,6 +37,8 @@ P00
   <h2>Edit Post</h2><br>
   <h3>{{error}}</h3>
   <form action ="/edited" method="POST">
+    <label for="blogname"> Rename Blog </label><br>
+    <textarea id="blogname" name="blogname" rows="1" cols="20">{{blogname}}</textarea><br>
     <label for="postname"> Rename Post </label><br>
     <textarea id="postname" name="postname" rows="1" cols="20">{{postname}}</textarea><br>
     <label for ="body"> Replace Post Text </label> <br>
