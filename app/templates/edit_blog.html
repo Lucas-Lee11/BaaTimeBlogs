@@ -37,13 +37,13 @@ P00
     </div>
 <br>
 
-   <strong>Select Blog to Edit </strong><br>
+   <strong>Select Blog to Edit: </strong><br><br>
    <form action = "/edit_post" method="POST">
     {%for blog in bloglist %}
         <input type="radio" id="{{blog}}" name="blogs" value="{{blog}}">
           <label for="{{blog}}"> {{blog}} </label><br>
     {%endfor%}
-    <input type="submit" value ="submit"> <br>
+    <br><input type="submit" value ="submit"> <br>
     </form>
     <h3>{{error}}</h3>
     <div id="footer">

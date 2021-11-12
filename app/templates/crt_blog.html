@@ -39,7 +39,7 @@ P00
   <form action ="/new_post" method="POST">
     <label for="newblog"> Create New Blog? </label>
     <input type="checkbox" id="newblog" name="newblog"> <br>
-    <label for="blog">Which Blog? (if blog exists)</label> <br>
+    <br><label for="blog">Which Blog? (if blog exists)</label> <br>
     <select name="blog" id="blog">
       {% for b in blogs %}
       <option value="{{b}}"> {{b}} </option>

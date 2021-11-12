@@ -31,12 +31,13 @@ P00
                 <a href="{{ url_for('index')}}" class="navbutton"><strong>Homepage</strong></a>
           </div>
             <form action = "/editing" method="POST">
-                <strong> Which Post </strong><br>
+                <br><strong> Choose Post to Edit: </strong><br>
+                <body>(To rename a blog, select any post)</body><br><br>
             {%for elem in postlist %}
                 <input type="radio" id="{{elem}}" name="posts" value="{{elem}}">
                 <label for="{{elem}}"> {{elem}} </label> <br>
             {%endfor%}
- <input type="submit" value ="submit"> <br>
+ <br><input type="submit" value ="submit"> <br>
  </form>
  <h3>{{error}}</h3>
           <div id="footer">
