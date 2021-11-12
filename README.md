@@ -19,16 +19,16 @@ The following instructions assume that you have Python 3.9 and pip already insta
 
 2. Create a new virtual environment.
 
-`$ python3 -m venv env_name`
-`$ source env/bin/activate`
+`$ python3 -m venv your_env_name`<br>
+`$ source your_env_name/bin/activate`
 
 3. Install project dependencies.
 
-`$ (env_name) pip3 install -r requirements.txt`
+`$ (your_env_name) pip3 install -r requirements.txt`
 
 4. Run the app.
 
-`$ (env_name) python3 main.py`
+`$ (your_env_name) python3 main.py`
 
 
 ## Acknowledgment
