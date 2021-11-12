@@ -193,6 +193,9 @@ EmmaB -- 2021-11-11 4:53
   Fixed bugs dealing with blogsdb.py and empty forms
 
 AlejandroA -- 2021-12-2:54
-  Finished Project. Added rename and delete functionality. Format bug fixes. Functionality bug fixes. Template cleaning. Updated README. Closed Devlog
+  Finished Project. Added rename and delete functionality. Format bug fixes. Functionality bug fixes. Template cleaning. Updated README.
 
-End Devlog -- 2021-12-2:54
+AlejandroA -- 2021-12-2:58
+  Honorable send off for sqlite_tester.py. __init__.py modified for deliverable. Devlog Closed.
+
+End Devlog -- 2021-12-2:58
