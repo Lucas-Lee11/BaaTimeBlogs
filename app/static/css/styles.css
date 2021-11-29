@@ -1,0 +1,45 @@
+/*
+FTC>FRC: Lucas Lee, Naomi Naranjo
+SoftDev
+K20 - Adding CSS!
+2021-11-30
+*/
+
+body{
+    margin: 0;
+}
+
+.header{
+    background-color: dimgrey;
+    color: white;
+    padding: 5px 10px;
+}
+
+.header h2{
+    color: lightgray;
+}
+
+.forms{
+    margin: auto;
+    text-align: center;
+}
+
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: dimgrey;
+}
+
+.navbar li {
+  float: left;
+}
+
+.navbar li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}

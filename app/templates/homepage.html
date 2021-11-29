@@ -5,43 +5,57 @@ P00
 2021-10-27
 -->
 
+<!--
+FTC>FRC: Lucas Lee, Naomi Naranjo
+SoftDev
+K20 - Adding CSS!
+2021-11-30
+-->
+
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Welcome</title>
-    <style>
 
-#footer {
-  background-color: rgba(211, 211, 211);
-  text-align: center;
-  padding: 10px;
-  font-size: 10px;
-  color: rgb(0, 0, 0);
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  height:30px;
-}
-  	</style>
-  </head>
+<head>
+    <title>Welcome</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        #footer {
+            background-color: rgba(211, 211, 211);
+            text-align: center;
+            padding: 10px;
+            font-size: 10px;
+            color: rgb(0, 0, 0);
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+        }
+    </style>
+</head>
+
 <body>
-  <div>
-    <a href="{{ url_for('crt_blog') }}"><strong>Create Blogs/Posts</strong></a>
-    <a href="{{ url_for('edit_blog')}}"><strong>Edit Your Blogs/Posts</strong></a>
-    <a href="{{ url_for('view_blogs')}}"><strong>View Blogs</strong></a>
-    <a href="{{ url_for('index')}}"><strong>Homepage</strong></a>
-</div>
+    <div class="navbar">
+        <ul>
+            <li><a href="{{ url_for('crt_blog') }}"><strong>Create Blogs/Posts</strong></a></li>
+            <li><a href="{{ url_for('edit_blog')}}"><strong>Edit Your Blogs/Posts</strong></a></li>
+            <li><a href="{{ url_for('view_blogs')}}"><strong>View Blogs</strong></a></li>
+            <li><a href="{{ url_for('index')}}"><strong>Homepage</strong></a></li>
+        </ul>
+
+
+    </div>
     <br>
     <h1 class="container">Welcome {{ username }}! <br>
-      <form action="/out">
-        <input type="submit" name="logout" value="Log Out">
-      </form>
+        <form action="/out">
+            <input type="submit" name="logout" value="Log Out">
+        </form>
     </h1>
     <div id="footer">
-      <p>Baa Time | Alejandro Alonso, Emma Buller, Theo Fahey, Ivan Mijacika | <a href='https://github.com/AAWorks/BaaTimeBlogs'>Github Repo</a> | Copyrights &copy; 2020 All Rights Reserved | Last Update: Nov 2021</p>
+        <p>Baa Time | Alejandro Alonso, Emma Buller, Theo Fahey, Ivan Mijacika | <a href='https://github.com/AAWorks/BaaTimeBlogs'>Github Repo</a> | Copyrights &copy; 2020 All Rights Reserved | Last Update: Nov 2021</p>
     </div>
-  </body>
+</body>
+
 </html>
 <!-- <form>
       <input type="radio" id = "blog1" name = "blog" value = "Blog1">
