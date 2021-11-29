@@ -7,23 +7,30 @@ P00
 
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>View Blogs</title>
-  </head>
 
-  <body>
-    <div>
-      <a href="{{ url_for('crt_blog') }}"><strong>Create Blogs/Posts</strong></a>
-      <a href="{{ url_for('edit_blog')}}"><strong>Edit Your Blogs/Posts</strong></a>
-      <a href="{{ url_for('view_blogs')}}"><strong>View Blogs</strong></a>
-      <a href="{{ url_for('index')}}"><strong>Homepage</strong></a>
-  </div>
-<br>
-   <h2><strong>Posts from {{blogname}}</strong></h2>
-   {% for postname in postDict.keys() %} 
-      <h3>{{postname}}</h3>
-      <body>{{postDict[postname]}}</body><br>
-   {% endfor %}
-  </body>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>View Blogs</title>
+</head>
+
+<body>
+    <div class="navbar">
+        <ul>
+            <li><a href="{{ url_for('crt_blog') }}"><strong>Create Blogs/Posts</strong></a></li>
+            <li><a href="{{ url_for('edit_blog')}}"><strong>Edit Your Blogs/Posts</strong></a></li>
+            <li><a href="{{ url_for('view_blogs')}}"><strong>View Blogs</strong></a></li>
+            <li><a href="{{ url_for('index')}}"><strong>Homepage</strong></a></li>
+        </ul>
+    </div>
+
+    <div class="show-posts">
+        <h2><strong>Posts from {{blogname}}</strong></h2>
+        {% for postname in postDict.keys() %}
+        <h3>{{postname}}</h3>
+        <body>{{postDict[postname]}}</body><br>
+        {% endfor %}
+    </div>
+
+</body>
 
 </html>
