@@ -7,6 +7,8 @@ Emma Buller (Devo)<br>
 Ivan Mijacika (Devo)<br>
 Theodore Fahey (Devo)
 
++ Lewis Cass (Lucas Lee) and Naomi Naranjo for CSS
+
 ## App Description
 "Baatime Blogs", as dubbed by our wonderful team of devos, provides users with a platform on which they can share anything from big ideas to passing whims. Users can manipulate blogs in a variety of ways, from adding, removing, and editing posts and blogs, to looking through blogs by other users.
 
